@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const data = {
   currency: "P",
@@ -12,18 +12,42 @@ const data = {
 const HomeScreen = ({ navigation }) => {
   return (
     <View>
-      <Text>Balance</Text>
-      <Text>
-        {data.currency} {data.balance}
-      </Text>
-      <Text>Total Income</Text>
-      <Text>
-        {data.currency} {data.totalIncome}
-      </Text>
-      <Text>Total Expenses</Text>
-      <Text>
-        {data.currency} {data.totalExpenses}
-      </Text>
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("Activity", { id: "Balance", data: "some data" })
+        }
+      >
+        <Text>Balance</Text>
+        <Text>
+          {data.currency} {data.balance}
+        </Text>
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("Activity", {
+            id: "Total Incomes",
+            data: "some data",
+          })
+        }
+      >
+        <Text>Total Incomes</Text>
+        <Text>
+          {data.currency} {data.totalIncome}
+        </Text>
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("Activity", {
+            id: "Total Expenses",
+            data: "some data",
+          })
+        }
+      >
+        <Text>Total Expenses</Text>
+        <Text>
+          {data.currency} {data.totalExpenses}
+        </Text>
+      </TouchableWithoutFeedback>
       <Button title="$" onPress={() => navigation.navigate("InputBalance")} />
     </View>
   );

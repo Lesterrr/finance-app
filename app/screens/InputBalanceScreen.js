@@ -1,12 +1,27 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { StyleSheet, Text, View, Button, Pressable } from "react-native";
+import {
+  TextInput,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
+import AppPicker from "../components/AppPicker";
+
+const categories = [
+  { id: 1, name: "Food", icon: "utensils" },
+  { id: 2, name: "Transportation", icon: "plane" },
+  { id: 3, name: "Shopping", icon: "shopping-cart" },
+];
 
 const InputBalanceScreen = () => {
   const [value, setValue] = useState(0);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const changeTextHandler = (value) => {
     setValue(value);
+  };
+
+  const selectItemHandler = (item) => {
+    setSelectedItem(item);
   };
 
   return (
@@ -25,13 +40,11 @@ const InputBalanceScreen = () => {
           placeholder="Input Value"
         />
       </View>
-      <View>
-        <Text>Category : </Text>
-        <TextInput
-          onChangeText={() => console.log("Category Inpout")}
-          placeholder="Category"
-        />
-      </View>
+      <AppPicker
+        items={categories}
+        selectedItem={selectedItem}
+        onSelectItem={selectItemHandler}
+      />
       <View>
         <Text>Description : </Text>
         <TextInput
