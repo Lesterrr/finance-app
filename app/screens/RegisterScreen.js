@@ -1,11 +1,15 @@
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { connect } from "react-redux";
+import { ActivityIndicator } from "react-native";
 
 import AppFormField from "../components/forms/AppFormField";
 import SubmitButton from "../components/forms/SubmitButton";
+import ErrorMessage from "../components/forms/ErrorMessage";
+import * as actions from "../store/actions/auth";
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ isLoading, error, onAuth }) => {
   const RegisterSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required().label("Email"),
     password: Yup.string().required().label("Password"),
@@ -18,7 +22,7 @@ const RegisterScreen = () => {
   return (
     <Formik
       initialValues={{ email: "", password: "", confirmPassword: "" }}
-      onSubmit={(values) => console.log(values.email, values.password)}
+      onSubmit={(values) => onAuth(values.email, values.password)}
       validationSchema={RegisterSchema}
     >
       <React.Fragment>
@@ -46,10 +50,29 @@ const RegisterScreen = () => {
           textContentType="password"
           secureTextEntry={true}
         />
-        <SubmitButton title="Sign Up" />
+        {isLoading ? (
+          <ActivityIndicator size="large" color="#0000ff" />
+        ) : (
+          <SubmitButton title="Sign Up" />
+        )}
+        <ErrorMessage error={error} visible={error !== null} />
       </React.Fragment>
     </Formik>
   );
 };
 
-export default RegisterScreen;
+const mapStateToProps = (state) => {
+  return {
+    isLoading: state.auth.loading,
+    error: state.auth.error,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: (email, password) =>
+      dispatch(actions.authenticate(email, password, true)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen);
