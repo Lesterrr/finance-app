@@ -11,6 +11,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { createFilter } from "redux-persist-transform-filter";
 
 import authReducer from "./app/store/reducers/auth";
+import walletReducer from "./app/store/reducers/wallet";
 import RootNavigation from "./app/navigation/RootNavigation";
 import { watchAuth } from "./app/store/sagas";
 
@@ -30,7 +31,10 @@ const persistConfig = {
 };
 
 // Collections of reducer.
-const rootReducer = combineReducers({ auth: authReducer });
+const rootReducer = combineReducers({
+  auth: authReducer,
+  wallet: walletReducer,
+});
 
 // Middleware: Redux Persist Persisted Reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);

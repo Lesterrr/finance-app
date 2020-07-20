@@ -1,15 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { Text, View, Button } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { connect } from "react-redux";
 
-const data = {
-  currency: "P",
-  balance: "8,200",
-  totalIncome: "12,312",
-  totalExpenses: "42,312",
-};
-
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, balance, totalIncome, totalExpenses }) => {
   return (
     <View>
       <TouchableWithoutFeedback
@@ -18,9 +12,7 @@ const HomeScreen = ({ navigation }) => {
         }
       >
         <Text>Balance</Text>
-        <Text>
-          {data.currency} {data.balance}
-        </Text>
+        <Text>{balance}</Text>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
         onPress={() =>
@@ -31,9 +23,7 @@ const HomeScreen = ({ navigation }) => {
         }
       >
         <Text>Total Incomes</Text>
-        <Text>
-          {data.currency} {data.totalIncome}
-        </Text>
+        <Text>{totalIncome}</Text>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
         onPress={() =>
@@ -44,15 +34,19 @@ const HomeScreen = ({ navigation }) => {
         }
       >
         <Text>Total Expenses</Text>
-        <Text>
-          {data.currency} {data.totalExpenses}
-        </Text>
+        <Text>{totalExpenses}</Text>
       </TouchableWithoutFeedback>
       <Button title="$" onPress={() => navigation.navigate("InputBalance")} />
     </View>
   );
 };
 
-export default HomeScreen;
+const mapStateToProps = (state) => {
+  return {
+    balance: state.wallet.balance,
+    totalIncome: state.wallet.totalIncome,
+    totalExpenses: state.wallet.totalExpenses,
+  };
+};
 
-const styles = StyleSheet.create({});
+export default connect(mapStateToProps)(HomeScreen);

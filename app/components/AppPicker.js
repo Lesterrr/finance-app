@@ -11,7 +11,6 @@ import {
 
 const AppPicker = ({ items, selectedItem, onSelectItem }) => {
   const [isVisible, setIsVisible] = useState(false);
-  console.log(selectedItem);
 
   return (
     <React.Fragment>
