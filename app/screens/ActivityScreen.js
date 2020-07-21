@@ -6,7 +6,7 @@ const ActivityScreen = ({ route }) => {
   if (data === null) {
     return;
   }
-  console.log(data);
+
   return (
     <FlatList
       data={data}
@@ -17,7 +17,6 @@ const ActivityScreen = ({ route }) => {
 };
 
 const Item = ({ amount, date, category, description, mode }) => {
-  console.log("Test");
   return (
     <View>
       {amount ? <Text>{amount}</Text> : null}

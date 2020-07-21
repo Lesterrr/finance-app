@@ -11,7 +11,6 @@ const HomeScreen = ({
   incomeActivity,
   expenseActivity,
 }) => {
-  console.log("Home screen rendered");
   return (
     <View>
       <TouchableWithoutFeedback
