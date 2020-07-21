@@ -6,7 +6,7 @@ import { ActivityIndicator } from "react-native";
 
 import AppFormField from "../components/forms/AppFormField";
 import SubmitButton from "../components/forms/SubmitButton";
-import ErrorMessage from "../components/forms/ErrorMessage";
+import ErrorMessage from "../components/ErrorMessage";
 import * as actions from "../store/actions/auth";
 
 const RegisterScreen = ({ isLoading, error, onAuth }) => {

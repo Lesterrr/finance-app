@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import AppPicker from "../components/AppPicker";
 import * as actions from "../store/actions/wallet";
+import ErrorMessage from "../components/ErrorMessage";
 
 const categories = [
   { id: 1, name: "Food", icon: "utensils" },
@@ -13,11 +14,17 @@ const categories = [
 
 const InputBalanceScreen = ({ onAddIncome, onAddExpense, navigation }) => {
   const [isAddIncome, setIsAddIncome] = useState(true);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
   const [description, setDescription] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   const submitHandler = () => {
+    if (parseFloat(amount) === 0 || !amount) {
+      setIsError(true);
+      return;
+    }
+
     let data = {
       amount: parseFloat(amount),
       category: selectedItem ? selectedItem.id : null,
@@ -53,7 +60,11 @@ const InputBalanceScreen = ({ onAddIncome, onAddExpense, navigation }) => {
           onChangeText={(e) => setAmount(e)}
           keyboardType="numeric"
           placeholder="Amount"
+          value={amount.toString()}
         />
+        {isError && (
+          <ErrorMessage visible={isError} error="You need to input an amount" />
+        )}
       </View>
       <AppPicker
         items={categories}
