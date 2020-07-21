@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Text, View, Button, Switch } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+import { Text, View, Button, Switch, TextInput } from "react-native";
+import { connect } from "react-redux";
 
 import AppPicker from "../components/AppPicker";
 import * as actions from "../store/actions/wallet";
-import { connect } from "react-redux";
 
 const categories = [
   { id: 1, name: "Food", icon: "utensils" },
@@ -16,20 +15,21 @@ const InputBalanceScreen = ({ onAddIncome, onAddExpense }) => {
   const [isAddIncome, setIsAddIncome] = useState(true);
   const [value, setValue] = useState(0);
   const [selectedItem, setSelectedItem] = useState(null);
-
-  const changeValueHandler = (value) => {
-    setValue(value);
-  };
-
-  const selectItemHandler = (item) => {
-    setSelectedItem(item);
-  };
+  const [description, setDescription] = useState(null);
 
   const submitValueHandler = () => {
+    let data = {
+      amount: parseFloat(value),
+      category: selectedItem ? selectedItem.id : null,
+      description: description,
+    };
+
     if (isAddIncome) {
-      onAddIncome(parseFloat(value));
+      data.mode = "INCOME";
+      onAddIncome(data.amount, data);
     } else {
-      onAddExpense(parseFloat(value));
+      data.mode = "EXPENSE";
+      onAddExpense(data.amount, data);
     }
   };
 
@@ -49,7 +49,7 @@ const InputBalanceScreen = ({ onAddIncome, onAddExpense }) => {
       <View>
         <Text>Amount : </Text>
         <TextInput
-          onChangeText={changeValueHandler}
+          onChangeText={(e) => setValue(e)}
           keyboardType={"numeric"}
           placeholder="Input Value"
         />
@@ -57,12 +57,12 @@ const InputBalanceScreen = ({ onAddIncome, onAddExpense }) => {
       <AppPicker
         items={categories}
         selectedItem={selectedItem}
-        onSelectItem={selectItemHandler}
+        onSelectItem={(e) => setSelectedItem(e)}
       />
       <View>
         <Text>Description : </Text>
         <TextInput
-          onChangeText={() => console.log("Descripton Inpout")}
+          onChangeText={(e) => setDescription(e)}
           placeholder="Description"
         />
       </View>
@@ -73,8 +73,10 @@ const InputBalanceScreen = ({ onAddIncome, onAddExpense }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddIncome: (amount) => dispatch(actions.addIncome(amount)),
-    onAddExpense: (amount) => dispatch(actions.addExpense(amount)),
+    onAddIncome: (amount, activityData) =>
+      dispatch(actions.addIncome(amount, activityData)),
+    onAddExpense: (amount, activityData) =>
+      dispatch(actions.addExpense(amount, activityData)),
   };
 };
 

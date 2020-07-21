@@ -26,7 +26,7 @@ const persistConfig = {
   key: "root",
   // Storage Method (React Native)
   storage: AsyncStorage,
-  whitelist: ["auth"], // only auth will be persisted
+  whitelist: ["auth", "wallet"], // only auth will be persisted
   transforms: [saveSubsetFilter],
 };
 
