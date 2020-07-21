@@ -11,15 +11,15 @@ const categories = [
   { id: 3, name: "Shopping", icon: "shopping-cart" },
 ];
 
-const InputBalanceScreen = ({ onAddIncome, onAddExpense }) => {
+const InputBalanceScreen = ({ onAddIncome, onAddExpense, navigation }) => {
   const [isAddIncome, setIsAddIncome] = useState(true);
-  const [value, setValue] = useState(0);
+  const [amount, setAmount] = useState(0);
   const [selectedItem, setSelectedItem] = useState(null);
   const [description, setDescription] = useState(null);
 
-  const submitValueHandler = () => {
+  const submitHandler = () => {
     let data = {
-      amount: parseFloat(value),
+      amount: parseFloat(amount),
       category: selectedItem ? selectedItem.id : null,
       description: description,
     };
@@ -31,6 +31,7 @@ const InputBalanceScreen = ({ onAddIncome, onAddExpense }) => {
       data.mode = "EXPENSE";
       onAddExpense(data.amount, data);
     }
+    navigation.navigate("Home");
   };
 
   return (
@@ -49,9 +50,9 @@ const InputBalanceScreen = ({ onAddIncome, onAddExpense }) => {
       <View>
         <Text>Amount : </Text>
         <TextInput
-          onChangeText={(e) => setValue(e)}
-          keyboardType={"numeric"}
-          placeholder="Input Value"
+          onChangeText={(e) => setAmount(e)}
+          keyboardType="numeric"
+          placeholder="Amount"
         />
       </View>
       <AppPicker
@@ -66,7 +67,8 @@ const InputBalanceScreen = ({ onAddIncome, onAddExpense }) => {
           placeholder="Description"
         />
       </View>
-      <Button title="Confirm" onPress={submitValueHandler} />
+      <Button title="Confirm" onPress={submitHandler} />
+      <Button title="Cancel" onPress={() => navigation.goBack()} />
     </View>
   );
 };
