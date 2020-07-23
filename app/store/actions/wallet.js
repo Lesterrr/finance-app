@@ -15,3 +15,11 @@ export const addExpense = (amount, activityData) => {
     activityData: activityData,
   };
 };
+
+export const updateActivity = (id, activityData) => {
+  return {
+    type: actionTypes.UPDATE_ACTIVITY,
+    id: id,
+    activityData: activityData,
+  };
+};

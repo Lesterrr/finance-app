@@ -8,30 +8,24 @@ const HomeScreen = ({
   balance,
   totalIncome,
   totalExpenses,
-  incomeActivity,
-  expenseActivity,
+  activity,
 }) => {
   return (
     <View>
       <TouchableWithoutFeedback
-        onPress={() =>
-          navigation.navigate("Activity", [
-            ...incomeActivity,
-            ...expenseActivity,
-          ])
-        }
+        onPress={() => navigation.navigate("Activity", [...activity])}
       >
         <Text>Balance</Text>
         <Text>{balance}</Text>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
-        onPress={() => navigation.navigate("Activity", [...incomeActivity])}
+        onPress={() => navigation.navigate("Activity", [...activity])}
       >
         <Text>Total Incomes</Text>
         <Text>{totalIncome}</Text>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
-        onPress={() => navigation.navigate("Activity", [...expenseActivity])}
+        onPress={() => navigation.navigate("Activity", [...activity])}
       >
         <Text>Total Expenses</Text>
         <Text>{totalExpenses}</Text>
@@ -46,8 +40,7 @@ const mapStateToProps = (state) => {
     balance: state.wallet.balance,
     totalIncome: state.wallet.totalIncome,
     totalExpenses: state.wallet.totalExpenses,
-    incomeActivity: state.wallet.incomeActivity,
-    expenseActivity: state.wallet.expenseActivity,
+    activity: state.wallet.activity,
   };
 };
 

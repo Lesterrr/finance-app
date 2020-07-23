@@ -4,8 +4,7 @@ const initialState = {
   balance: 0,
   totalIncome: 0,
   totalExpenses: 0,
-  incomeActivity: [],
-  expenseActivity: [],
+  activity: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -15,8 +14,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         balance: state.balance + action.value,
         totalIncome: state.totalIncome + action.value,
-        incomeActivity: [
-          ...state.incomeActivity,
+        activity: [
+          ...state.activity,
           {
             ...action.activityData,
             date: new Date().getTime(),
@@ -29,14 +28,23 @@ const reducer = (state = initialState, action) => {
         ...state,
         balance: state.balance - action.value,
         totalExpenses: state.totalExpenses + action.value,
-        expenseActivity: [
-          ...state.expenseActivity,
+        activity: [
+          ...state.activity,
           {
             ...action.activityData,
             date: new Date().getTime(),
             // id: `Expense-${state.expenseActivity.length}`,
           },
         ],
+      };
+    case actionTypes.UPDATE_ACTIVITY:
+      let updatedActivity = state.activity.map((item) =>
+        item.date !== action.id ? item : action.activityData
+      );
+      console.log(updatedActivity);
+      return {
+        ...state,
+        activity: updatedActivity,
       };
     default:
       return state;

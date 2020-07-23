@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, Button, Switch, TextInput } from "react-native";
 import { connect } from "react-redux";
 
@@ -12,12 +12,30 @@ const categories = [
   { id: 3, name: "Shopping", icon: "shopping-cart" },
 ];
 
-const InputBalanceScreen = ({ onAddIncome, onAddExpense, navigation }) => {
-  const [isAddIncome, setIsAddIncome] = useState(true);
+const InputBalanceScreen = ({
+  onAddIncome,
+  onAddExpense,
+  onUpdateActivity,
+  navigation,
+  route,
+}) => {
+  const [isIncome, setIsIncome] = useState(true);
   const [amount, setAmount] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
   const [description, setDescription] = useState(null);
   const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    if (route.params) {
+      const item = route.params;
+      categories.map((category) =>
+        item.category === category.id ? setSelectedItem(category) : null
+      );
+      setAmount(item.amount);
+      setIsIncome(item.isIncome);
+      setDescription(item.description);
+    }
+  }, []);
 
   const submitHandler = () => {
     if (parseFloat(amount) === 0 || !amount) {
@@ -29,29 +47,41 @@ const InputBalanceScreen = ({ onAddIncome, onAddExpense, navigation }) => {
       amount: parseFloat(amount),
       category: selectedItem ? selectedItem.id : null,
       description: description,
+      isIncome: isIncome,
     };
 
-    if (isAddIncome) {
-      data.mode = "INCOME";
+    if (isIncome) {
       onAddIncome(data.amount, data);
     } else {
-      data.mode = "EXPENSE";
       onAddExpense(data.amount, data);
     }
     navigation.navigate("Home");
+  };
+
+  const updateHandler = () => {
+    let data = {
+      amount: parseFloat(amount),
+      category: selectedItem ? selectedItem.id : null,
+      description: description,
+      isIncome: isIncome,
+      date: route.params.date,
+    };
+
+    onUpdateActivity(data.date, data);
+    navigation.navigate("Activity");
   };
 
   return (
     <View>
       <Text>{new Date().toDateString()}</Text>
       <View>
-        <Text>{isAddIncome ? "INCOME" : "EXPENSE"}</Text>
+        <Text>{isIncome ? "INCOME" : "EXPENSE"}</Text>
         <Switch
           trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isAddIncome ? "#f5dd4b" : "#f4f3f4"}
+          thumbColor={isIncome ? "#f5dd4b" : "#f4f3f4"}
           ios_backgroundColor="#3e3e3e"
-          onValueChange={() => setIsAddIncome(!isAddIncome)}
-          value={isAddIncome}
+          onValueChange={() => setIsIncome(!isIncome)}
+          value={isIncome}
         />
       </View>
       <View>
@@ -76,9 +106,14 @@ const InputBalanceScreen = ({ onAddIncome, onAddExpense, navigation }) => {
         <TextInput
           onChangeText={(e) => setDescription(e)}
           placeholder="Description"
+          value={description}
         />
       </View>
-      <Button title="Confirm" onPress={submitHandler} />
+      {route.params ? (
+        <Button title="Update" onPress={updateHandler} />
+      ) : (
+        <Button title="Confirm" onPress={submitHandler} />
+      )}
       <Button title="Cancel" onPress={() => navigation.goBack()} />
     </View>
   );
@@ -90,6 +125,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.addIncome(amount, activityData)),
     onAddExpense: (amount, activityData) =>
       dispatch(actions.addExpense(amount, activityData)),
+    onUpdateActivity: (id, activityData) =>
+      dispatch(actions.updateActivity(id, activityData)),
   };
 };
 
