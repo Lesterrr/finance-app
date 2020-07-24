@@ -3,31 +3,21 @@ import { Text, View, Button } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 
-const HomeScreen = ({
-  navigation,
-  balance,
-  totalIncome,
-  totalExpenses,
-  activity,
-}) => {
-  console.log("HOME SCREEN RENDERED");
-
+const HomeScreen = ({ navigation, balance, totalIncome, totalExpenses }) => {
   return (
     <View>
-      <TouchableWithoutFeedback
-        onPress={() => navigation.navigate("Activity", [...activity])}
-      >
+      <TouchableWithoutFeedback onPress={() => navigation.navigate("Activity")}>
         <Text>Balance</Text>
         <Text>{balance}</Text>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
-        onPress={() => navigation.navigate("Activity", [...activity])}
+        onPress={() => navigation.navigate("Activity", { key: "income" })}
       >
         <Text>Total Incomes</Text>
         <Text>{totalIncome}</Text>
       </TouchableWithoutFeedback>
       <TouchableWithoutFeedback
-        onPress={() => navigation.navigate("Activity", [...activity])}
+        onPress={() => navigation.navigate("Activity", { key: "expense" })}
       >
         <Text>Total Expenses</Text>
         <Text>{totalExpenses}</Text>
@@ -42,7 +32,6 @@ const mapStateToProps = (state) => {
     balance: state.wallet.balance,
     totalIncome: state.wallet.totalIncome,
     totalExpenses: state.wallet.totalExpenses,
-    activity: state.wallet.activity,
   };
 };
 
