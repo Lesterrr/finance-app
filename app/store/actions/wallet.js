@@ -16,10 +16,11 @@ export const addExpense = (amount, activityData) => {
   };
 };
 
-export const updateActivity = (id, activityData) => {
+export const updateActivity = (activityData, prevAmount, isModeChanged) => {
   return {
     type: actionTypes.UPDATE_ACTIVITY,
-    id: id,
     activityData: activityData,
+    oldAmount: prevAmount,
+    isModeChanged: isModeChanged,
   };
 };

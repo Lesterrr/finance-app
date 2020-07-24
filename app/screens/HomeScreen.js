@@ -10,6 +10,8 @@ const HomeScreen = ({
   totalExpenses,
   activity,
 }) => {
+  console.log("HOME SCREEN RENDERED");
+
   return (
     <View>
       <TouchableWithoutFeedback

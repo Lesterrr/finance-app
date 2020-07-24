@@ -39,11 +39,41 @@ const reducer = (state = initialState, action) => {
       };
     case actionTypes.UPDATE_ACTIVITY:
       let updatedActivity = state.activity.map((item) =>
-        item.date !== action.id ? item : action.activityData
+        item.date !== action.activityData.date ? item : action.activityData
       );
-      console.log(updatedActivity);
+
+      let updatedBalance =
+        state.balance - action.oldAmount + action.activityData.amount;
+      let updatedTotalIncome = state.totalIncome;
+      let updatedTotalExpenses = state.totalExpenses;
+
+      if (!action.activityData.isIncome) {
+        updatedBalance =
+          state.balance + action.oldAmount - action.activityData.amount;
+        updatedTotalExpenses =
+          state.totalExpenses - action.oldAmount + action.activityData.amount;
+      } else {
+        updatedTotalIncome =
+          state.totalIncome - action.oldAmount + action.activityData.amount;
+      }
+      if (action.isModeChanged && action.activityData.isIncome) {
+        updatedBalance =
+          state.balance + action.oldAmount + action.activityData.amount;
+        updatedTotalIncome = state.totalIncome + action.activityData.amount;
+        updatedTotalExpenses = state.totalExpenses - action.oldAmount;
+      }
+      if (action.isModeChanged && !action.activityData.isIncome) {
+        updatedBalance =
+          state.balance - action.oldAmount + -action.activityData.amount;
+        updatedTotalIncome = state.totalIncome - action.oldAmount;
+        updatedTotalExpenses = state.totalExpenses + action.activityData.amount;
+      }
+
       return {
         ...state,
+        balance: updatedBalance,
+        totalIncome: updatedTotalIncome,
+        totalExpenses: updatedTotalExpenses,
         activity: updatedActivity,
       };
     default:

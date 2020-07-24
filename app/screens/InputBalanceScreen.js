@@ -67,7 +67,9 @@ const InputBalanceScreen = ({
       date: route.params.date,
     };
 
-    onUpdateActivity(data.date, data);
+    const isModeChanged = isIncome !== route.params.isIncome;
+
+    onUpdateActivity(data, route.params.amount, isModeChanged);
     navigation.navigate("Activity");
   };
 
@@ -125,8 +127,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.addIncome(amount, activityData)),
     onAddExpense: (amount, activityData) =>
       dispatch(actions.addExpense(amount, activityData)),
-    onUpdateActivity: (id, activityData) =>
-      dispatch(actions.updateActivity(id, activityData)),
+    onUpdateActivity: (activityData, prevAmount, isModeChanged) =>
+      dispatch(actions.updateActivity(activityData, prevAmount, isModeChanged)),
   };
 };
 

@@ -16,6 +16,7 @@ const ActivityScreen = ({ route }) => {
     />
   );
 };
+console.log("ACTIVITY SCREEN RENDERED");
 
 const Item = ({ amount, date, category, description, isIncome }) => {
   const navigation = useNavigation();
