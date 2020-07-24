@@ -1,15 +1,20 @@
 import React from "react";
 import { Text, View, FlatList, TouchableHighlight, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 
-const ActivityScreen = ({ route, data, navigation }) => {
+import * as actions from "../store/actions/wallet";
+
+const ActivityScreen = ({ route, data, navigation, onDeleteActivity }) => {
   let newData = [];
   if (route.params && route.params.key === "income") {
     data.map((item) => item.isIncome && newData.push(item));
   } else if (route.params && route.params.key === "expense") {
     data.map((item) => !item.isIncome && newData.push(item));
   }
+
+  const deleteHandler = (id, amount, isIncome) => {
+    onDeleteActivity(id, amount, isIncome);
+  };
 
   const showSettingsHandler = (
     amount,
@@ -24,7 +29,7 @@ const ActivityScreen = ({ route, data, navigation }) => {
       [
         {
           text: "Delete",
-          onPress: () => alert("Are you sure you want to delete?"),
+          onPress: () => deleteHandler(date, amount, isIncome),
         },
         {
           text: "Edit",
@@ -87,4 +92,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ActivityScreen);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onDeleteActivity: (id, amount, isIncome) =>
+      dispatch(actions.deleteActivity(id, amount, isIncome)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityScreen);

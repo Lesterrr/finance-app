@@ -76,6 +76,28 @@ const reducer = (state = initialState, action) => {
         totalExpenses: updatedTotalExpenses,
         activity: updatedActivity,
       };
+    case actionTypes.DELETE_ACTIVITY:
+      const newActivity = state.activity.filter(
+        (item) => item.date !== action.id
+      );
+
+      let updatedData = {};
+      if (action.isIncome) {
+        updatedData = {
+          balance: state.balance - action.amount,
+          totalIncome: state.totalIncome - action.amount,
+        };
+      } else {
+        updatedData = {
+          balance: state.balance + action.amount,
+          totalExpenses: state.totalExpenses - action.amount,
+        };
+      }
+      return {
+        ...state,
+        ...updatedData,
+        activity: newActivity,
+      };
     default:
       return state;
   }

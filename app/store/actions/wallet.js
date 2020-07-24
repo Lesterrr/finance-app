@@ -24,3 +24,12 @@ export const updateActivity = (activityData, prevAmount, isModeChanged) => {
     isModeChanged: isModeChanged,
   };
 };
+
+export const deleteActivity = (id, amount, isIncome) => {
+  return {
+    type: actionTypes.DELETE_ACTIVITY,
+    id: id,
+    amount: amount,
+    isIncome: isIncome,
+  };
+};
