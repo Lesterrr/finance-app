@@ -3,8 +3,8 @@ import { Text, View, Button, Switch, TextInput } from "react-native";
 import { connect } from "react-redux";
 
 import AppPicker from "../components/AppPicker";
-import * as actions from "../store/actions/wallet";
 import ErrorMessage from "../components/ErrorMessage";
+import * as actions from "../store/actions";
 
 const categories = [
   { id: 1, name: "Food", icon: "utensils" },

@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, FlatList, TouchableHighlight, Alert } from "react-native";
 import { connect } from "react-redux";
 
-import * as actions from "../store/actions/wallet";
+import * as actions from "../store/actions";
 
 const ActivityScreen = ({ route, data, navigation, onDeleteActivity }) => {
   let newData = [];

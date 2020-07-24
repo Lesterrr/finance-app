@@ -7,7 +7,7 @@ import { ActivityIndicator } from "react-native";
 import AppFormField from "../components/forms/AppFormField";
 import SubmitButton from "../components/forms/SubmitButton";
 import ErrorMessage from "../components/ErrorMessage";
-import * as actions from "../store/actions/auth";
+import * as actions from "../store/actions";
 
 const RegisterScreen = ({ isLoading, error, onAuth }) => {
   const RegisterSchema = Yup.object().shape({
