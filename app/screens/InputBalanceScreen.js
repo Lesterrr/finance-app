@@ -59,6 +59,11 @@ const InputBalanceScreen = ({
   };
 
   const updateHandler = () => {
+    if (parseFloat(amount) === 0 || !amount) {
+      setIsError(true);
+      return;
+    }
+
     let data = {
       amount: parseFloat(amount),
       category: selectedItem ? selectedItem.id : null,
