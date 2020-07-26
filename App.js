@@ -12,6 +12,7 @@ import { createFilter } from "redux-persist-transform-filter";
 
 import authReducer from "./app/store/reducers/auth";
 import walletReducer from "./app/store/reducers/wallet";
+import categoryReducer from "./app/store/reducers/category";
 import RootNavigation from "./app/navigation/RootNavigation";
 import { watchAuth } from "./app/store/sagas";
 
@@ -34,6 +35,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   wallet: walletReducer,
+  category: categoryReducer,
 });
 
 // Middleware: Redux Persist Persisted Reducer

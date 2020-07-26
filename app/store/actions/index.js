@@ -6,3 +6,5 @@ export {
   updateActivity,
   deleteActivity,
 } from "./wallet";
+
+export { addCategory } from "./category";

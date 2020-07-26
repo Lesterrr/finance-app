@@ -12,3 +12,6 @@ export const ADD_INCOME = "ADD_INCOME";
 export const ADD_EXPENSE = "ADD_EXPENSE";
 export const UPDATE_ACTIVITY = "UPDATE_ACTIVITY";
 export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
+
+// Category
+export const ADD_CATEGORY = "ADD_CATEGORY";
