@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 const RootNavigation = () => {
   return (
-    <Stack.Navigator initialRouteName="CreateCategory">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Activity" component={ActivityScreen} />
       <Stack.Screen name="InputBalance" component={InputBalanceScreen} />

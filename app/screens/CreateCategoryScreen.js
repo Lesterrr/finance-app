@@ -12,11 +12,13 @@ import { connect } from "react-redux";
 
 import * as actions from "../store/actions/category";
 import Icons from "../constants/Icons";
+import ErrorMessage from "../components/ErrorMessage";
 
-const CreateCategoryScreen = ({ categories, onAddCategory }) => {
+const CreateCategoryScreen = ({ categories, onAddCategory, navigation }) => {
   const [icon, setIcon] = useState("attach-money");
   const [name, setName] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   console.log(categories);
   const changeIconHandler = (icon) => {
@@ -28,7 +30,13 @@ const CreateCategoryScreen = ({ categories, onAddCategory }) => {
   };
 
   const submitHandler = () => {
-    onAddCategory({ icon, name });
+    if (!name) {
+      setIsError(true);
+      return;
+    }
+    let id = new Date().getTime();
+    onAddCategory({ id, icon, name });
+    navigation.navigate("InputBalance", { category: id });
   };
 
   return (
@@ -37,6 +45,7 @@ const CreateCategoryScreen = ({ categories, onAddCategory }) => {
         <MaterialIcons name={icon} size={24} color="black" />
       </TouchableWithoutFeedback>
       <TextInput placeholder="Category Name" onChangeText={changeTextHandler} />
+      <ErrorMessage error="Can not have a blank name" visible={isError} />
       <Button title="Confirm" onPress={submitHandler} />
 
       <Modal

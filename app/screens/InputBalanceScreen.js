@@ -6,16 +6,11 @@ import AppPicker from "../components/AppPicker";
 import ErrorMessage from "../components/ErrorMessage";
 import * as actions from "../store/actions";
 
-const categories = [
-  { id: 1, name: "Food", icon: "utensils" },
-  { id: 2, name: "Transportation", icon: "plane" },
-  { id: 3, name: "Shopping", icon: "shopping-cart" },
-];
-
 const InputBalanceScreen = ({
   onAddIncome,
   onAddExpense,
   onUpdateActivity,
+  categories,
   navigation,
   route,
 }) => {
@@ -27,6 +22,7 @@ const InputBalanceScreen = ({
 
   useEffect(() => {
     if (route.params) {
+      console.log("Test", route.params);
       const item = route.params;
       categories.map((category) =>
         item.category === category.id ? setSelectedItem(category) : null
@@ -35,7 +31,7 @@ const InputBalanceScreen = ({
       setIsIncome(item.isIncome);
       setDescription(item.description);
     }
-  }, []);
+  }, [route.params]);
 
   const submitHandler = () => {
     if (parseFloat(amount) === 0 || !amount) {
@@ -99,9 +95,7 @@ const InputBalanceScreen = ({
           placeholder="Amount"
           value={amount.toString()}
         />
-        {isError && (
-          <ErrorMessage visible={isError} error="You need to input an amount" />
-        )}
+        <ErrorMessage visible={isError} error="You need to input an amount" />
       </View>
       <AppPicker
         items={categories}
@@ -126,6 +120,12 @@ const InputBalanceScreen = ({
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    categories: state.category.categories,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddIncome: (amount, activityData) =>
@@ -137,4 +137,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(InputBalanceScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(InputBalanceScreen);

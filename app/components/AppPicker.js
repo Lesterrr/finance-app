@@ -8,8 +8,11 @@ import {
   FlatList,
   TouchableWithoutFeedback,
 } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const AppPicker = ({ items, selectedItem, onSelectItem }) => {
+  const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
 
   return (
@@ -17,7 +20,10 @@ const AppPicker = ({ items, selectedItem, onSelectItem }) => {
       <TouchableWithoutFeedback onPress={() => setIsVisible(true)}>
         <View>
           {selectedItem ? (
-            <Text>{selectedItem.name}</Text>
+            <React.Fragment>
+              <MaterialIcons name={selectedItem.icon} size={35} color="black" />
+              <Text>{selectedItem.name}</Text>
+            </React.Fragment>
           ) : (
             <Text>Select Category</Text>
           )}
@@ -27,15 +33,25 @@ const AppPicker = ({ items, selectedItem, onSelectItem }) => {
         <FlatList
           data={items}
           renderItem={({ item }) => (
-            <Button
-              title={item.name}
-              onPress={() => {
-                onSelectItem(item);
-                setIsVisible(false);
-              }}
-            />
+            <React.Fragment>
+              <MaterialIcons name={item.icon} size={35} color="black" />
+              <Button
+                title={item.name}
+                onPress={() => {
+                  onSelectItem(item);
+                  setIsVisible(false);
+                }}
+              />
+            </React.Fragment>
           )}
           keyExtractor={(item) => item.id.toString()}
+        />
+        <Button
+          title="Add Category"
+          onPress={() => {
+            navigation.navigate("CreateCategory");
+            setIsVisible(false);
+          }}
         />
         <Button title="Close" onPress={() => setIsVisible(false)} />
       </Modal>

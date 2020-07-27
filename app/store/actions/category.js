@@ -6,3 +6,10 @@ export const addCategory = (data) => {
     categoryData: data,
   };
 };
+
+export const deleteCategory = (id) => {
+  return {
+    type: actionTypes.DELETE_CATEGORY,
+    id: id,
+  };
+};
