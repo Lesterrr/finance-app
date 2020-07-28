@@ -60,5 +60,3 @@ const AppPicker = ({ items, selectedItem, onSelectItem }) => {
 };
 
 export default AppPicker;
-
-const styles = StyleSheet.create({});

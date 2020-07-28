@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, View, Button, Switch, TextInput } from "react-native";
 import { connect } from "react-redux";
 
-import AppPicker from "../components/AppPicker";
+import CategoryPicker from "../components/CategoryPicker";
 import ErrorMessage from "../components/ErrorMessage";
 import * as actions from "../store/actions";
 
@@ -97,7 +97,7 @@ const InputBalanceScreen = ({
         />
         <ErrorMessage visible={isError} error="You need to input an amount" />
       </View>
-      <AppPicker
+      <CategoryPicker
         items={categories}
         selectedItem={selectedItem}
         onSelectItem={(e) => setSelectedItem(e)}
