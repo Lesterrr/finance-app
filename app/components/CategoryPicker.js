@@ -13,12 +13,25 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const AppPicker = ({ items, selectedItem, onSelectItem }) => {
+const AppPicker = ({ items, selectedItem, onSelectItem, onDeleteCategory }) => {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
-  const onDeleteCategoryHandler = (id) => {
-    console.log(id);
+
+  const showSettingsHandler = (id) => {
+    Alert.alert(
+      "Options",
+      "What do you want to do?",
+      [
+        {
+          text: "Delete",
+          onPress: () => onDeleteCategory(id),
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ],
+      { cancelable: false }
+    );
   };
+
   return (
     <React.Fragment>
       <TouchableWithoutFeedback onPress={() => setIsVisible(true)}>
@@ -47,7 +60,7 @@ const AppPicker = ({ items, selectedItem, onSelectItem }) => {
                 Alert.alert(
                   "Delete",
                   "Are you sure?",
-                  onDeleteCategoryHandler(item.id)
+                  showSettingsHandler(item.id)
                 )
               }
             >
@@ -72,8 +85,6 @@ const AppPicker = ({ items, selectedItem, onSelectItem }) => {
   );
 };
 
-export default AppPicker;
-
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
@@ -82,3 +93,5 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+
+export default AppPicker;

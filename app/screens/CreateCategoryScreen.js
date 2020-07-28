@@ -20,7 +20,6 @@ const CreateCategoryScreen = ({ categories, onAddCategory, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  console.log(categories);
   const changeIconHandler = (icon) => {
     setIcon(icon);
   };

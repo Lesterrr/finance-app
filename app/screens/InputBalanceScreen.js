@@ -10,6 +10,7 @@ const InputBalanceScreen = ({
   onAddIncome,
   onAddExpense,
   onUpdateActivity,
+  onDeleteCategory,
   categories,
   navigation,
   route,
@@ -101,6 +102,7 @@ const InputBalanceScreen = ({
         items={categories}
         selectedItem={selectedItem}
         onSelectItem={(e) => setSelectedItem(e)}
+        onDeleteCategory={onDeleteCategory}
       />
       <View>
         <Text>Description : </Text>
@@ -134,6 +136,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.addExpense(amount, activityData)),
     onUpdateActivity: (activityData, prevAmount, isModeChanged) =>
       dispatch(actions.updateActivity(activityData, prevAmount, isModeChanged)),
+    onDeleteCategory: (id) => dispatch(actions.deleteCategory(id)),
   };
 };
 
