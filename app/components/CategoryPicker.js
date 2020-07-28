@@ -7,6 +7,8 @@ import {
   Button,
   FlatList,
   TouchableWithoutFeedback,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -14,7 +16,9 @@ import { useNavigation } from "@react-navigation/native";
 const AppPicker = ({ items, selectedItem, onSelectItem }) => {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
-
+  const onDeleteCategoryHandler = (id) => {
+    console.log(id);
+  };
   return (
     <React.Fragment>
       <TouchableWithoutFeedback onPress={() => setIsVisible(true)}>
@@ -31,18 +35,27 @@ const AppPicker = ({ items, selectedItem, onSelectItem }) => {
       </TouchableWithoutFeedback>
       <Modal visible={isVisible} animationType="slide">
         <FlatList
+          contentContainerStyle={styles.container}
           data={items}
           renderItem={({ item }) => (
-            <React.Fragment>
-              <MaterialIcons name={item.icon} size={35} color="black" />
-              <Button
-                title={item.name}
-                onPress={() => {
-                  onSelectItem(item);
-                  setIsVisible(false);
-                }}
-              />
-            </React.Fragment>
+            <TouchableOpacity
+              onPress={() => {
+                onSelectItem(item);
+                setIsVisible(false);
+              }}
+              onLongPress={() =>
+                Alert.alert(
+                  "Delete",
+                  "Are you sure?",
+                  onDeleteCategoryHandler(item.id)
+                )
+              }
+            >
+              <View style={styles.categoryItem}>
+                <MaterialIcons name={item.icon} size={35} color="black" />
+                <Text>{item.name}</Text>
+              </View>
+            </TouchableOpacity>
           )}
           keyExtractor={(item) => item.id.toString()}
         />
@@ -60,3 +73,12 @@ const AppPicker = ({ items, selectedItem, onSelectItem }) => {
 };
 
 export default AppPicker;
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+  },
+  categoryItem: {
+    padding: 10,
+  },
+});
