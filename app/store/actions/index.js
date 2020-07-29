@@ -7,4 +7,4 @@ export {
   deleteActivity,
 } from "./wallet";
 
-export { addCategory, deleteCategory } from "./category";
+export { addCategory, deleteCategory, updateCategory } from "./category";

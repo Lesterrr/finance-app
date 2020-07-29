@@ -17,14 +17,18 @@ const AppPicker = ({ items, selectedItem, onSelectItem, onDeleteCategory }) => {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
 
-  const showSettingsHandler = (id) => {
+  const showSettingsHandler = (item) => {
     Alert.alert(
       "Options",
       "What do you want to do?",
       [
         {
           text: "Delete",
-          onPress: () => onDeleteCategory(id),
+          onPress: () => onDeleteCategory(item.id),
+        },
+        {
+          text: "Edit",
+          onPress: () => navigation.navigate("CreateCategory", item),
         },
         { text: "OK", onPress: () => console.log("OK Pressed") },
       ],
@@ -56,13 +60,7 @@ const AppPicker = ({ items, selectedItem, onSelectItem, onDeleteCategory }) => {
                 onSelectItem(item);
                 setIsVisible(false);
               }}
-              onLongPress={() =>
-                Alert.alert(
-                  "Delete",
-                  "Are you sure?",
-                  showSettingsHandler(item.id)
-                )
-              }
+              onLongPress={() => showSettingsHandler(item)}
             >
               <View style={styles.categoryItem}>
                 <MaterialIcons name={item.icon} size={35} color="black" />

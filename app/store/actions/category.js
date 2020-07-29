@@ -13,3 +13,10 @@ export const deleteCategory = (id) => {
     id: id,
   };
 };
+
+export const updateCategory = (data) => {
+  return {
+    type: actionTypes.UPDATE_CATEGORY,
+    categoryData: data,
+  };
+};

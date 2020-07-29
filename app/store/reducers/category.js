@@ -22,6 +22,13 @@ const reducer = (state = initialState, action) => {
       return {
         categories: updatedData,
       };
+    case actionTypes.UPDATE_CATEGORY:
+      updatedData = state.categories.map((item) =>
+        item.id !== action.categoryData.id ? item : action.categoryData
+      );
+      return {
+        categories: updatedData,
+      };
     default:
       return state;
   }

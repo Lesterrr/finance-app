@@ -10,20 +10,22 @@ const InputBalanceScreen = ({
   onAddIncome,
   onAddExpense,
   onUpdateActivity,
-  onDeleteCategory,
   categories,
+  onDeleteCategory,
+  onUpdateCategory,
   navigation,
   route,
 }) => {
   const [isIncome, setIsIncome] = useState(true);
   const [amount, setAmount] = useState("");
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState({});
   const [description, setDescription] = useState(null);
   const [isError, setIsError] = useState(false);
 
+  console.log("Input Balance rendered");
+
   useEffect(() => {
     if (route.params) {
-      console.log("Test", route.params);
       const item = route.params;
       categories.map((category) =>
         item.category === category.id ? setSelectedItem(category) : null
@@ -103,6 +105,7 @@ const InputBalanceScreen = ({
         selectedItem={selectedItem}
         onSelectItem={(e) => setSelectedItem(e)}
         onDeleteCategory={onDeleteCategory}
+        onUpdateCategory={onUpdateCategory}
       />
       <View>
         <Text>Description : </Text>
@@ -137,6 +140,8 @@ const mapDispatchToProps = (dispatch) => {
     onUpdateActivity: (activityData, prevAmount, isModeChanged) =>
       dispatch(actions.updateActivity(activityData, prevAmount, isModeChanged)),
     onDeleteCategory: (id) => dispatch(actions.deleteCategory(id)),
+    onUpdateCategory: (categoryData) =>
+      dispatch(actions.updateCategory(categoryData)),
   };
 };
 
