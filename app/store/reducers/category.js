@@ -13,7 +13,6 @@ const reducer = (state = initialState, action) => {
   let updatedData;
   switch (action.type) {
     case actionTypes.ADD_CATEGORY:
-      console.log("ADD_CATEGORY");
       return {
         categories: [...state.categories, action.categoryData],
       };

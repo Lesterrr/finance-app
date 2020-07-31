@@ -30,7 +30,6 @@ const CreateCategoryScreen = ({
       const category = route.params;
       setIcon(category.icon);
       setName(category.name);
-      console.log("params", route.params);
     }
   }, [route.params]);
 
@@ -49,7 +48,7 @@ const CreateCategoryScreen = ({
     }
     let id = new Date().getTime();
     onAddCategory({ id, icon, name });
-    navigation.navigate("InputBalance", { category: id, icon, name });
+    navigation.navigate("InputBalance");
   };
 
   const updateHandler = () => {
@@ -59,7 +58,7 @@ const CreateCategoryScreen = ({
     }
     let id = route.params.id;
     onUpdateCategory({ id, icon, name });
-    navigation.navigate("InputBalance", { category: { id, icon, name } });
+    navigation.navigate("InputBalance");
   };
 
   return (

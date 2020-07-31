@@ -18,23 +18,27 @@ const InputBalanceScreen = ({
 }) => {
   const [isIncome, setIsIncome] = useState(true);
   const [amount, setAmount] = useState("");
-  const [selectedItem, setSelectedItem] = useState({});
+  const [selectedItem, setSelectedItem] = useState(categories[0]);
   const [description, setDescription] = useState(null);
   const [isError, setIsError] = useState(false);
-
-  console.log("Input Balance rendered");
 
   useEffect(() => {
     if (route.params) {
       const item = route.params;
-      categories.map((category) =>
-        item.category === category.id ? setSelectedItem(category) : null
-      );
+      setSelectedItem(item.category);
       setAmount(item.amount);
       setIsIncome(item.isIncome);
       setDescription(item.description);
     }
-  }, [route.params]);
+  }, []);
+
+  useEffect(() => {
+    if (route.params.category.id === selectedItem.id) {
+      setSelectedItem(route.params.category.id);
+    } else {
+      return;
+    }
+  });
 
   const submitHandler = () => {
     if (parseFloat(amount) === 0 || !amount) {
@@ -44,7 +48,7 @@ const InputBalanceScreen = ({
 
     let data = {
       amount: parseFloat(amount),
-      category: selectedItem ? selectedItem.id : null,
+      category: selectedItem ? selectedItem : null,
       description: description,
       isIncome: isIncome,
     };
@@ -65,7 +69,7 @@ const InputBalanceScreen = ({
 
     let data = {
       amount: parseFloat(amount),
-      category: selectedItem ? selectedItem.id : null,
+      category: selectedItem ? selectedItem : null,
       description: description,
       isIncome: isIncome,
       date: route.params.date,

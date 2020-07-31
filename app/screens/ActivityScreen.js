@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, View, FlatList, TouchableHighlight, Alert } from "react-native";
 import { connect } from "react-redux";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import * as actions from "../store/actions";
 
@@ -76,11 +77,26 @@ const Item = ({
       underlayColor="white"
     >
       <View>
-        {amount ? <Text>{amount}</Text> : null}
-        {date && <Text>{new Date(date).toString()}</Text>}
-        {category && <Text>{category}</Text>}
-        <Text>{isIncome ? "INCOME" : "EXPENSE"}</Text>
-        {description && <Text>{description}</Text>}
+        {amount ? (
+          <Text style={{ color: isIncome ? "green" : "red" }}>{amount}</Text>
+        ) : null}
+        {date && (
+          <Text style={{ color: isIncome ? "green" : "red" }}>
+            {new Date(date).toString()}
+          </Text>
+        )}
+        {category && (
+          <MaterialIcons
+            name={category.icon}
+            size={35}
+            color={isIncome ? "green" : "red"}
+          />
+        )}
+        {description && (
+          <Text style={{ color: isIncome ? "green" : "red" }}>
+            {description}
+          </Text>
+        )}
       </View>
     </TouchableHighlight>
   );

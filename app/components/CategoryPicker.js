@@ -16,7 +16,6 @@ import { useNavigation } from "@react-navigation/native";
 const AppPicker = ({ items, selectedItem, onSelectItem, onDeleteCategory }) => {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
-
   const showSettingsHandler = (item) => {
     Alert.alert(
       "Options",
@@ -28,7 +27,10 @@ const AppPicker = ({ items, selectedItem, onSelectItem, onDeleteCategory }) => {
         },
         {
           text: "Edit",
-          onPress: () => navigation.navigate("CreateCategory", item),
+          onPress: () => {
+            setIsVisible(false);
+            navigation.navigate("CreateCategory", item);
+          },
         },
         { text: "OK", onPress: () => console.log("OK Pressed") },
       ],
