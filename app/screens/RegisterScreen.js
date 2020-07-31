@@ -2,12 +2,13 @@ import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, View, StyleSheet } from "react-native";
 
 import AppFormField from "../components/forms/AppFormField";
 import SubmitButton from "../components/forms/SubmitButton";
 import ErrorMessage from "../components/ErrorMessage";
 import * as actions from "../store/actions";
+import Text from "../components/Text";
 
 const RegisterScreen = ({ isLoading, error, onAuth }) => {
   const RegisterSchema = Yup.object().shape({
@@ -20,46 +21,60 @@ const RegisterScreen = ({ isLoading, error, onAuth }) => {
   });
 
   return (
-    <Formik
-      initialValues={{ email: "", password: "", confirmPassword: "" }}
-      onSubmit={(values) => onAuth(values.email, values.password)}
-      validationSchema={RegisterSchema}
-    >
-      <React.Fragment>
-        <AppFormField
-          placeholder="Email"
-          autoCapitalize="none"
-          autoCorrect={false}
-          name="email"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-        />
-        <AppFormField
-          placeholder="Password"
-          autoCapitalize="none"
-          autoCorrect={false}
-          name="password"
-          textContentType="password"
-          secureTextEntry={true}
-        />
-        <AppFormField
-          placeholder="Confirm Password"
-          autoCapitalize="none"
-          autoCorrect={false}
-          name="confirmPassword"
-          textContentType="password"
-          secureTextEntry={true}
-        />
-        {isLoading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
-        ) : (
-          <SubmitButton title="Sign Up" />
-        )}
-        <ErrorMessage error={error} visible={error !== null} />
-      </React.Fragment>
-    </Formik>
+    <View style={styles.container}>
+      <Text style={styles.greetings}>Create Account</Text>
+      <Formik
+        initialValues={{ email: "", password: "", confirmPassword: "" }}
+        onSubmit={(values) => onAuth(values.email, values.password)}
+        validationSchema={RegisterSchema}
+      >
+        <React.Fragment>
+          <AppFormField
+            placeholder="Email"
+            autoCapitalize="none"
+            autoCorrect={false}
+            name="email"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+          />
+          <AppFormField
+            placeholder="Password"
+            autoCapitalize="none"
+            autoCorrect={false}
+            name="password"
+            textContentType="password"
+            secureTextEntry={true}
+          />
+          <AppFormField
+            placeholder="Confirm Password"
+            autoCapitalize="none"
+            autoCorrect={false}
+            name="confirmPassword"
+            textContentType="password"
+            secureTextEntry={true}
+          />
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#0000ff" />
+          ) : (
+            <SubmitButton title="Sign Up" />
+          )}
+          <ErrorMessage error={error} visible={error !== null} />
+        </React.Fragment>
+      </Formik>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
+  greetings: {
+    fontSize: 25,
+  },
+});
 
 const mapStateToProps = (state) => {
   return {

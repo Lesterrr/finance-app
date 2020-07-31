@@ -1,5 +1,7 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
+
+import Text from "./Text";
 
 const ErrorMessage = ({ error, visible }) => {
   if (!error || !visible) return null;
@@ -9,6 +11,7 @@ const ErrorMessage = ({ error, visible }) => {
 const styles = StyleSheet.create({
   text: {
     color: "red",
+    fontSize: 15,
   },
 });
 
