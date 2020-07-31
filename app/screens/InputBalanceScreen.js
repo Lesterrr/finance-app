@@ -32,14 +32,6 @@ const InputBalanceScreen = ({
     }
   }, []);
 
-  useEffect(() => {
-    if (route.params.category.id === selectedItem.id) {
-      setSelectedItem(route.params.category.id);
-    } else {
-      return;
-    }
-  });
-
   const submitHandler = () => {
     if (parseFloat(amount) === 0 || !amount) {
       setIsError(true);
