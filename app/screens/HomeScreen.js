@@ -13,7 +13,6 @@ const HomeScreen = ({ navigation, balance, totalIncome, totalExpenses }) => {
         description={balance}
         onPress={() => navigation.navigate("Activity")}
         containerStyle={{ backgroundColor: "none" }}
-        mode="balance"
       />
       <WalletItem
         title="Total Income"

@@ -1,10 +1,9 @@
 import React from "react";
-import { Text, View, FlatList, TouchableHighlight, Alert } from "react-native";
+import { FlatList, Alert } from "react-native";
 import { connect } from "react-redux";
-import { MaterialIcons } from "@expo/vector-icons";
 
 import * as actions from "../store/actions";
-import ListItem from "../components/lists/ListItem";
+import ActivityItem from "../components/activity/ActivityItem";
 
 const ActivityScreen = ({ route, data, navigation, onDeleteActivity }) => {
   let newData = [];
@@ -55,57 +54,13 @@ const ActivityScreen = ({ route, data, navigation, onDeleteActivity }) => {
     <FlatList
       data={newData.length ? newData : data}
       renderItem={({ item }) => (
-        <ListItem
-          title={item.amount}
-          subTitle={`${new Date(item.date)} ${item.category.name} ${
-            item.description
-          }`}
-          onPress={() => showSettingsHandler(item)}
+        <ActivityItem
+          {...item}
+          onLongPress={() => showSettingsHandler({ ...item })}
         />
       )}
       keyExtractor={(_, index) => index.toString()}
     />
-  );
-};
-
-const Item = ({
-  amount,
-  date,
-  category,
-  description,
-  isIncome,
-  showSettingsHandler,
-}) => {
-  return (
-    <TouchableHighlight
-      onLongPress={() =>
-        showSettingsHandler(amount, date, category, description, isIncome)
-      }
-      underlayColor="white"
-    >
-      <View>
-        {amount ? (
-          <Text style={{ color: isIncome ? "green" : "red" }}>{amount}</Text>
-        ) : null}
-        {date && (
-          <Text style={{ color: isIncome ? "green" : "red" }}>
-            {new Date(date).toString()}
-          </Text>
-        )}
-        {category && (
-          <MaterialIcons
-            name={category.icon}
-            size={35}
-            color={isIncome ? "green" : "red"}
-          />
-        )}
-        {description && (
-          <Text style={{ color: isIncome ? "green" : "red" }}>
-            {description}
-          </Text>
-        )}
-      </View>
-    </TouchableHighlight>
   );
 };
 

@@ -4,7 +4,7 @@ import { View } from "react-native";
 import ListItem from "../lists/ListItem";
 import WalletItemDescription from "./WalletItemDescription";
 
-const WalletItem = ({ title, description, onPress, mode }) => {
+const WalletItem = ({ title, description, onPress, onLongPress, mode }) => {
   return (
     <View>
       <ListItem
@@ -13,6 +13,7 @@ const WalletItem = ({ title, description, onPress, mode }) => {
           <WalletItemDescription description={description} mode={mode} />
         }
         onPress={onPress}
+        onLongPress={onLongPress}
         containerStyle={{ backgroundColor: "none" }}
       />
     </View>

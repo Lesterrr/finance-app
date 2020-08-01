@@ -13,17 +13,26 @@ const ListItem = ({
   titleStyle,
   descriptionStyle,
   description,
+  onLongPress,
 }) => {
   return (
     <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
+      <TouchableHighlight
+        underlayColor={colors.light}
+        onPress={onPress}
+        onLongPress={onLongPress}
+      >
         <View style={[styles.container, containerStyle]}>
           {IconComponent}
           {image && <Image style={styles.image} source={image} />}
           <View style={styles.detailsContainer}>
-            <Text style={[styles.title, titleStyle]} numberOfLines={1}>
-              {title}
-            </Text>
+            {title && typeof title === "string" ? (
+              <Text style={[styles.title, titleStyle]} numberOfLines={1}>
+                {title}
+              </Text>
+            ) : (
+              title
+            )}
 
             {description && typeof description === "string" ? (
               <Text style={[styles.description, descriptionStyle]}>adsasd</Text>
