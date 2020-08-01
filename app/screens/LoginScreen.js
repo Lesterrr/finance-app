@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { connect } from "react-redux";
 import { ActivityIndicator, View, StyleSheet } from "react-native";
 
-import AppFormField from "../components/forms/AppFormField";
+import FormField from "../components/forms/FormField";
 import SubmitButton from "../components/forms/SubmitButton";
 import ErrorMessage from "../components/ErrorMessage";
 import * as actions from "../store/actions";
@@ -25,7 +25,7 @@ const LoginScreen = ({ isLoading, error, onAuth }) => {
         validationSchema={LoginSchema}
       >
         <React.Fragment>
-          <AppFormField
+          <FormField
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="Email"
@@ -33,7 +33,7 @@ const LoginScreen = ({ isLoading, error, onAuth }) => {
             textContentType="emailAddress"
             keyboardType="email-address"
           />
-          <AppFormField
+          <FormField
             placeholder="Password"
             autoCapitalize="none"
             autoCorrect={false}

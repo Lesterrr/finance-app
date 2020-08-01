@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { connect } from "react-redux";
 import { ActivityIndicator, View, StyleSheet } from "react-native";
 
-import AppFormField from "../components/forms/AppFormField";
+import FormField from "../components/forms/FormField";
 import SubmitButton from "../components/forms/SubmitButton";
 import ErrorMessage from "../components/ErrorMessage";
 import * as actions from "../store/actions";
@@ -29,7 +29,7 @@ const RegisterScreen = ({ isLoading, error, onAuth }) => {
         validationSchema={RegisterSchema}
       >
         <React.Fragment>
-          <AppFormField
+          <FormField
             placeholder="Email"
             autoCapitalize="none"
             autoCorrect={false}
@@ -37,7 +37,7 @@ const RegisterScreen = ({ isLoading, error, onAuth }) => {
             keyboardType="email-address"
             textContentType="emailAddress"
           />
-          <AppFormField
+          <FormField
             placeholder="Password"
             autoCapitalize="none"
             autoCorrect={false}
@@ -45,7 +45,7 @@ const RegisterScreen = ({ isLoading, error, onAuth }) => {
             textContentType="password"
             secureTextEntry={true}
           />
-          <AppFormField
+          <FormField
             placeholder="Confirm Password"
             autoCapitalize="none"
             autoCorrect={false}

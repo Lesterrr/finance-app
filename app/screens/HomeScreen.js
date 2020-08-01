@@ -1,29 +1,36 @@
 import React from "react";
-import { Text, View, Button } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { Button } from "react-native";
 import { connect } from "react-redux";
+
+import Screen from "../components/Screen";
+import WalletItem from "../components/wallet/WalletItem";
 
 const HomeScreen = ({ navigation, balance, totalIncome, totalExpenses }) => {
   return (
-    <View>
-      <TouchableWithoutFeedback onPress={() => navigation.navigate("Activity")}>
-        <Text>Balance</Text>
-        <Text>{balance}</Text>
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback
+    <Screen>
+      <WalletItem
+        title="Balance"
+        description={balance}
+        onPress={() => navigation.navigate("Activity")}
+        containerStyle={{ backgroundColor: "none" }}
+        mode="balance"
+      />
+      <WalletItem
+        title="Total Income"
+        description={totalIncome}
         onPress={() => navigation.navigate("Activity", { key: "income" })}
-      >
-        <Text>Total Incomes</Text>
-        <Text>{totalIncome}</Text>
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback
+        containerStyle={{ backgroundColor: "none" }}
+        mode="income"
+      />
+      <WalletItem
+        title="Total Expenses"
+        description={totalExpenses}
         onPress={() => navigation.navigate("Activity", { key: "expense" })}
-      >
-        <Text>Total Expenses</Text>
-        <Text>{totalExpenses}</Text>
-      </TouchableWithoutFeedback>
+        containerStyle={{ backgroundColor: "none" }}
+        mode="expense"
+      />
       <Button title="$" onPress={() => navigation.navigate("InputBalance")} />
-    </View>
+    </Screen>
   );
 };
 

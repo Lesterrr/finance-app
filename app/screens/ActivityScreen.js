@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import * as actions from "../store/actions";
+import ListItem from "../components/lists/ListItem";
 
 const ActivityScreen = ({ route, data, navigation, onDeleteActivity }) => {
   let newData = [];
@@ -17,13 +18,13 @@ const ActivityScreen = ({ route, data, navigation, onDeleteActivity }) => {
     onDeleteActivity(id, amount, isIncome);
   };
 
-  const showSettingsHandler = (
+  const showSettingsHandler = ({
     amount,
     date,
     category,
     description,
-    isIncome
-  ) => {
+    isIncome,
+  }) => {
     Alert.alert(
       "Options",
       "What do you want to do?",
@@ -54,7 +55,13 @@ const ActivityScreen = ({ route, data, navigation, onDeleteActivity }) => {
     <FlatList
       data={newData.length ? newData : data}
       renderItem={({ item }) => (
-        <Item {...item} showSettingsHandler={showSettingsHandler} />
+        <ListItem
+          title={item.amount}
+          subTitle={`${new Date(item.date)} ${item.category.name} ${
+            item.description
+          }`}
+          onPress={() => showSettingsHandler(item)}
+        />
       )}
       keyExtractor={(_, index) => index.toString()}
     />
