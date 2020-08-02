@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import ActivityDescription from "./ActivityDescription";
 import ListItem from "../lists/ListItem";
 import ActivityTitle from "./ActivityTitle";
@@ -23,5 +23,3 @@ const ActivityItem = ({ amount, isIncome, category, date, onLongPress }) => {
 };
 
 export default ActivityItem;
-
-const styles = StyleSheet.create({});

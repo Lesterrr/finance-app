@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, Button, Switch, TextInput } from "react-native";
+import { View, Switch } from "react-native";
 import { connect } from "react-redux";
 
+import Screen from "../components/Screen";
 import CategoryPicker from "../components/CategoryPicker";
 import ErrorMessage from "../components/ErrorMessage";
 import * as actions from "../store/actions";
+import Text from "../components/Text";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
 
 const InputBalanceScreen = ({
   onAddIncome,
@@ -74,7 +78,7 @@ const InputBalanceScreen = ({
   };
 
   return (
-    <View>
+    <Screen>
       <Text>{new Date().toDateString()}</Text>
       <View>
         <Text>{isIncome ? "INCOME" : "EXPENSE"}</Text>
@@ -111,13 +115,14 @@ const InputBalanceScreen = ({
           value={description}
         />
       </View>
+
       {route.params ? (
         <Button title="Update" onPress={updateHandler} />
       ) : (
         <Button title="Confirm" onPress={submitHandler} />
       )}
       <Button title="Cancel" onPress={() => navigation.goBack()} />
-    </View>
+    </Screen>
   );
 };
 

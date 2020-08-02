@@ -44,7 +44,7 @@ const ActivityScreen = ({ route, data, navigation, onDeleteActivity }) => {
             }),
           style: "cancel",
         },
-        { text: "OK", onPress: () => console.log("OK Pressed") },
+        { text: "Cancel", onPress: () => console.log("cancelled") },
       ],
       { cancelable: false }
     );

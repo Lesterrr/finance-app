@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   Modal,
-  Button,
   FlatList,
   TouchableWithoutFeedback,
   TouchableOpacity,
@@ -12,6 +10,9 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+
+import Text from "../components/Text";
+import Button from "../components/Button";
 
 const AppPicker = ({ items, selectedItem, onSelectItem, onDeleteCategory }) => {
   const navigation = useNavigation();

@@ -2,17 +2,18 @@ import React, { useState, useEffect } from "react";
 import {
   Modal,
   View,
-  Button,
-  TextInput,
   TouchableWithoutFeedback,
   StyleSheet,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 
+import Screen from "../components/Screen";
 import * as actions from "../store/actions/category";
 import Icons from "../constants/Icons";
 import ErrorMessage from "../components/ErrorMessage";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
 
 const CreateCategoryScreen = ({
   route,
@@ -62,7 +63,7 @@ const CreateCategoryScreen = ({
   };
 
   return (
-    <View>
+    <Screen>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
         <MaterialIcons name={icon} size={24} color="black" />
       </TouchableWithoutFeedback>
@@ -102,7 +103,7 @@ const CreateCategoryScreen = ({
         </View>
         <Button title="close" onPress={() => setModalVisible(false)} />
       </Modal>
-    </View>
+    </Screen>
   );
 };
 

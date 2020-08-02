@@ -1,6 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+
+import Text from "../Text";
 
 const ActivityDescription = ({ date, category, icon }) => {
   return (
