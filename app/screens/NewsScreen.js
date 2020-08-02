@@ -20,7 +20,6 @@ const NewsScreen = () => {
       .then((response) => {
         setNews(response.data.articles);
         setIsLoading(false);
-        console.log(response.data.articles);
       })
       .catch((error) => {
         console.log(error);

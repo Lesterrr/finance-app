@@ -8,12 +8,13 @@ import InputBalanceScreen from "../screens/InputBalanceScreen";
 import ActivityScreen from "../screens/ActivityScreen";
 import NewsScreen from "../screens/NewsScreen";
 import CreateCategoryScreen from "../screens/CreateCategoryScreen";
+import StatisticsScreen from "../screens/StatisticsScreen";
 
 const Stack = createStackNavigator();
 
 const RootNavigation = () => {
   return (
-    <Stack.Navigator initialRouteName="News" headerMode="none">
+    <Stack.Navigator initialRouteName="Statistics" headerMode="none">
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Activity" component={ActivityScreen} />
       <Stack.Screen name="InputBalance" component={InputBalanceScreen} />
@@ -21,6 +22,7 @@ const RootNavigation = () => {
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="News" component={NewsScreen} />
       <Stack.Screen name="CreateCategory" component={CreateCategoryScreen} />
+      <Stack.Screen name="Statistics" component={StatisticsScreen} />
     </Stack.Navigator>
   );
 };
