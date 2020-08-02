@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, ActivityIndicator, Image } from "react-native";
+import { View, FlatList, ActivityIndicator } from "react-native";
 import Axios from "axios";
+import * as WebBrowser from "expo-web-browser";
+
+import NewsItem from "../components/news/NewsItem";
 
 const NewsScreen = () => {
   const [news, setNews] = useState(null);
@@ -14,15 +17,20 @@ const NewsScreen = () => {
       "apiKey=275f3c5775a9496c8e9897b826685367";
 
     Axios.get(url)
-      .then((reponse) => {
-        setNews(reponse.data.articles);
+      .then((response) => {
+        setNews(response.data.articles);
         setIsLoading(false);
+        console.log(response.data.articles);
       })
       .catch((error) => {
         console.log(error);
         setIsLoading(false);
       });
   }, []);
+
+  const handleLinkOpen = (url) => {
+    WebBrowser.openBrowserAsync(url);
+  };
 
   return (
     <View>
@@ -31,34 +39,14 @@ const NewsScreen = () => {
       ) : (
         <FlatList
           data={news}
-          renderItem={({ item }) => <Item {...item} />}
+          renderItem={({ item }) => (
+            <NewsItem {...item} onPress={handleLinkOpen} />
+          )}
           keyExtractor={(_, index) => index.toString()}
-          ItemSeparatorComponent={() => <View style={{ marginTop: 100 }} />}
         />
       )}
     </View>
   );
 };
-
-const Item = ({
-  source,
-  author,
-  title,
-  description,
-  url,
-  urlToImage,
-  publishedAt,
-  content,
-}) => (
-  <View>
-    <Text>{title}</Text>
-    <Image
-      style={{ width: 100, height: 40 }}
-      source={{
-        uri: urlToImage,
-      }}
-    />
-  </View>
-);
 
 export default NewsScreen;
