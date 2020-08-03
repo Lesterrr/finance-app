@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "react-native";
 import { connect } from "react-redux";
 
 import Screen from "../components/Screen";
@@ -28,7 +27,6 @@ const HomeScreen = ({ navigation, balance, totalIncome, totalExpenses }) => {
         containerStyle={{ backgroundColor: "none" }}
         mode="expense"
       />
-      <Button title="$" onPress={() => navigation.navigate("InputBalance")} />
     </Screen>
   );
 };
