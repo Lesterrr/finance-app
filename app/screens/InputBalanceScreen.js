@@ -34,26 +34,32 @@ const InputBalanceScreen = ({
       setIsIncome(item.isIncome);
       setDescription(item.description);
     }
-  }, []);
+  }, [route.params]);
+
+  const clearState = () => {
+    setAmount("");
+    setSelectedItem(categories[0]);
+    setDescription(null);
+    setIsError(false);
+  };
 
   const submitHandler = () => {
     if (parseFloat(amount) === 0 || !amount) {
       setIsError(true);
       return;
     }
-
     let data = {
       amount: parseFloat(amount),
       category: selectedItem ? selectedItem : null,
       description: description,
       isIncome: isIncome,
     };
-
     if (isIncome) {
       onAddIncome(data.amount, data);
     } else {
       onAddExpense(data.amount, data);
     }
+    clearState();
     navigation.navigate("Home");
   };
 
@@ -62,7 +68,6 @@ const InputBalanceScreen = ({
       setIsError(true);
       return;
     }
-
     let data = {
       amount: parseFloat(amount),
       category: selectedItem ? selectedItem : null,
@@ -70,11 +75,11 @@ const InputBalanceScreen = ({
       isIncome: isIncome,
       date: route.params.date,
     };
-
     const isModeChanged = isIncome !== route.params.isIncome;
-
     onUpdateActivity(data, route.params.amount, isModeChanged);
+    clearState();
     navigation.navigate("Activity");
+    navigation.goBack();
   };
 
   return (

@@ -30,7 +30,7 @@ const StatisticsScreen = ({ activities, categories }) => {
   return (
     <Screen>
       <View style={styles.container}>
-        <PieChart data={data} />
+        <PieChart data={finalData} />
       </View>
     </Screen>
   );
