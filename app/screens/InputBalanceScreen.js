@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Switch } from "react-native";
+import { View, Switch, Alert } from "react-native";
 import { connect } from "react-redux";
 
 import Screen from "../components/Screen";
@@ -82,6 +82,28 @@ const InputBalanceScreen = ({
     navigation.goBack();
   };
 
+  const showSettingsHandler = (item, closeModal) => {
+    Alert.alert(
+      "Options",
+      "What do you want to do?",
+      [
+        {
+          text: "Delete",
+          onPress: () => onDeleteCategory(item.id),
+        },
+        {
+          text: "Edit",
+          onPress: () => {
+            closeModal();
+            navigation.navigate("CreateCategory", item);
+          },
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <Screen>
       <Text>{new Date().toDateString()}</Text>
@@ -109,8 +131,7 @@ const InputBalanceScreen = ({
         items={categories}
         selectedItem={selectedItem}
         onSelectItem={(e) => setSelectedItem(e)}
-        onDeleteCategory={onDeleteCategory}
-        onUpdateCategory={onUpdateCategory}
+        onItemLongPress={showSettingsHandler}
       />
       <View>
         <Text>Description : </Text>
