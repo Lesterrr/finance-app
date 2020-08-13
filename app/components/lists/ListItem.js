@@ -1,19 +1,24 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
+import { StyleSheet, View, TouchableHighlight } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+
 import colors from "../../config/colors";
+import ListItemTitle from "./ListItemTitle";
+import ListItemDescription from "./ListItemDescription";
 
 const ListItem = ({
   title,
   image,
   IconComponent,
   onPress,
+  descriptionProps,
+  titleProps,
   renderRightActions,
   containerStyle,
-  titleStyle,
-  descriptionStyle,
   description,
   onLongPress,
+  ListItemTitleComponent = ListItemTitle,
+  ListItemDescriptionComponent = ListItemDescription,
 }) => {
   return (
     <Swipeable renderRightActions={renderRightActions}>
@@ -26,19 +31,11 @@ const ListItem = ({
           {IconComponent}
           {image && <Image style={styles.image} source={image} />}
           <View style={styles.detailsContainer}>
-            {title && typeof title === "string" ? (
-              <Text style={[styles.title, titleStyle]} numberOfLines={1}>
-                {title}
-              </Text>
-            ) : (
-              title
-            )}
-
-            {description && typeof description === "string" ? (
-              <Text style={[styles.description, descriptionStyle]}>adsasd</Text>
-            ) : (
-              description
-            )}
+            <ListItemTitleComponent title={title} {...titleProps} />
+            <ListItemDescriptionComponent
+              description={description}
+              {...descriptionProps}
+            />
           </View>
         </View>
       </TouchableHighlight>
@@ -62,12 +59,6 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 35,
-  },
-  description: {
-    color: colors.medium,
-  },
-  title: {
-    fontWeight: "500",
   },
 });
 

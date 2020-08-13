@@ -9,9 +9,8 @@ const WalletItem = ({ title, description, onPress, onLongPress, mode }) => {
     <View>
       <ListItem
         title={title}
-        description={
-          <WalletItemDescription description={description} mode={mode} />
-        }
+        descriptionProps={{ description, mode }}
+        ListItemDescriptionComponent={WalletItemDescription}
         onPress={onPress}
         onLongPress={onLongPress}
         containerStyle={{ backgroundColor: "none" }}

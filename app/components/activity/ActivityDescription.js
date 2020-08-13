@@ -4,11 +4,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 import Text from "../Text";
 
-const ActivityDescription = ({ date, category, icon }) => {
+const ActivityDescription = ({ name, date, icon }) => {
   return (
     <View style={styles.container}>
+      <Text>{name}</Text>
       <Text>{date}</Text>
-      <Text>{category}</Text>
       <MaterialIcons name={icon} />
     </View>
   );

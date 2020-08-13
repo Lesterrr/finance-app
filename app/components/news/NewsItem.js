@@ -1,9 +1,8 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-
-import Text from "../Text";
-import Card from "../Card";
+import { StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
+import Card from "../Card";
 
 const NewsItem = ({
   source,
@@ -19,11 +18,7 @@ const NewsItem = ({
   return (
     <TouchableOpacity onPress={() => onPress(url)}>
       <Card
-        title={
-          <View>
-            <Text style={{ color: "red" }}>{title}</Text>
-          </View>
-        }
+        title={title}
         description={content}
         image={
           urlToImage && {
