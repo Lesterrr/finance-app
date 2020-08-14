@@ -1,36 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { connect } from "react-redux";
 
 import Screen from "../components/Screen";
 import PieChart from "../components/charts/PieChart";
-import { connect } from "react-redux";
+import Button from "../components/Button";
 
-const StatisticsScreen = ({ activities, categories }) => {
+const StatisticsScreen = ({ activities }) => {
+  const [isIncome, setIsIncome] = useState(false);
+
   let data = [];
-  activities.map((item) => {
-    !item.isIncome && data.push({ x: item.category.name, y: item.amount });
-  });
+  if (isIncome) {
+    activities.map((item) => {
+      item.isIncome && data.push({ x: item.category.name, y: item.amount });
+    });
+  } else {
+    activities.map((item) => {
+      !item.isIncome && data.push({ x: item.category.name, y: item.amount });
+    });
+  }
 
-  let finalData = [];
+  let pieData = [];
   data.forEach((item) => {
-    let index = finalData.findIndex((element) => {
+    let index = pieData.findIndex((element) => {
       if (element[Object.keys(element)[0]] === item[Object.keys(item)[0]])
         return true;
     });
     if (index === -1) {
-      finalData.push(item);
+      pieData.push(item);
     } else {
-      finalData[index] = {
+      pieData[index] = {
         [Object.keys(item)[0]]: item[Object.keys(item)[0]],
-        [Object.keys(item)[1]]: item[Object.keys(item)[1]] + finalData[index].y,
+        [Object.keys(item)[1]]: item[Object.keys(item)[1]] + pieData[index].y,
       };
     }
   });
 
   return (
     <Screen>
+      <Button
+        onPress={() => setIsIncome(!isIncome)}
+        title={isIncome ? "INCOME" : "EXPENSE"}
+      />
       <View style={styles.container}>
-        <PieChart data={finalData} />
+        <PieChart data={pieData} />
       </View>
     </Screen>
   );
