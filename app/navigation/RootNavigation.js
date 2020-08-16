@@ -1,5 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import { connect } from "react-redux";
 
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
@@ -10,17 +11,31 @@ import AppNavigation from "./AppNavigation";
 
 const Stack = createStackNavigator();
 
-const RootNavigation = () => {
+const RootNavigation = ({ isFirstTime }) => {
   return (
-    <Stack.Navigator initialRouteName="OnBoard" headerMode="none">
-      <Stack.Screen name="OnBoard" component={OnBoardScreen} />
-      <Stack.Screen name="App" component={AppNavigation} />
-      <Stack.Screen name="Activity" component={ActivityScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="CreateCategory" component={CreateCategoryScreen} />
+    <Stack.Navigator headerMode="none">
+      {isFirstTime ? (
+        <Stack.Screen name="OnBoard" component={OnBoardScreen} />
+      ) : (
+        <React.Fragment>
+          <Stack.Screen name="App" component={AppNavigation} />
+          <Stack.Screen name="Activity" component={ActivityScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen
+            name="CreateCategory"
+            component={CreateCategoryScreen}
+          />
+        </React.Fragment>
+      )}
     </Stack.Navigator>
   );
 };
 
-export default RootNavigation;
+const mapStateToProps = (state) => {
+  return {
+    isFirstTime: state.app.showOnBoard,
+  };
+};
+
+export default connect(mapStateToProps)(RootNavigation);

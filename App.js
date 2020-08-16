@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { PersistGate } from "redux-persist/integration/react";
 import { createFilter } from "redux-persist-transform-filter";
 
+import appReducer from "./app/store/reducers/app";
 import authReducer from "./app/store/reducers/auth";
 import walletReducer from "./app/store/reducers/wallet";
 import categoryReducer from "./app/store/reducers/category";
@@ -27,12 +28,13 @@ const persistConfig = {
   key: "root",
   // Storage Method (React Native)
   storage: AsyncStorage,
-  whitelist: ["auth", "wallet", "category"], // only auth will be persisted
+  whitelist: ["app", "auth", "wallet", "category"], // only auth will be persisted
   transforms: [saveSubsetFilter],
 };
 
 // Collections of reducer.
 const rootReducer = combineReducers({
+  app: appReducer,
   auth: authReducer,
   wallet: walletReducer,
   category: categoryReducer,

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 import Swiper from "react-native-swiper";
+import { connect } from "react-redux";
 
 import Button from "../components/Button";
+import * as actions from "../store/actions";
 
-const OnBoardScreen = () => {
+const OnBoardScreen = ({ onGetStarted }) => {
   const [showPagination, setShowPagination] = useState(true);
 
   return (
@@ -53,17 +55,20 @@ const OnBoardScreen = () => {
           </Text>
         </View>
         <View style={styles.button}>
-          <Button
-            title="Get Started"
-            onPress={() => console.log("Get Started button was pressed!")}
-          />
+          <Button title="Get Started" onPress={onGetStarted} />
         </View>
       </View>
     </Swiper>
   );
 };
 
-export default OnBoardScreen;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onGetStarted: () => dispatch(actions.onGetStarted()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(OnBoardScreen);
 
 const styles = StyleSheet.create({
   slide: {

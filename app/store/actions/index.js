@@ -8,3 +8,5 @@ export {
 } from "./wallet";
 
 export { addCategory, deleteCategory, updateCategory } from "./category";
+
+export { onGetStarted } from "./app";
