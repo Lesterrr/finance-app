@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 const RootNavigation = ({ isFirstTime }) => {
   return (
-    <Stack.Navigator headerMode="none">
+    <Stack.Navigator headerMode="none" mode="card">
       {isFirstTime ? (
         <Stack.Screen name="OnBoard" component={OnBoardScreen} />
       ) : (
