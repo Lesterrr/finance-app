@@ -8,7 +8,7 @@ import InputBalanceScreen from "../screens/InputBalanceScreen";
 import StatisticsScreen from "../screens/StatisticsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import colors from "../config/colors";
-import { Button, View } from "react-native";
+import InputButton from "./InputButton";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +18,9 @@ const AppNavigation = () => {
       tabBarOptions={{
         showLabel: false,
         inactiveTintColor: colors.black,
+        keyboardHidesTabBar: true,
       }}
+      lazy={true}
     >
       <Tab.Screen
         name="Home"
@@ -41,11 +43,14 @@ const AppNavigation = () => {
       <Tab.Screen
         name="InputBalance"
         component={InputBalanceScreen}
-        options={{
+        options={({ navigation }) => ({
+          tabBarButton: () => (
+            <InputButton onPress={() => navigation.navigate("InputBalance")} />
+          ),
           tabBarIcon: ({ size, color }) => (
             <FontAwesome name="plus-circle" size={size} color={color} />
           ),
-        }}
+        })}
       />
       <Tab.Screen
         name="News"
