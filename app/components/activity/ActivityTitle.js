@@ -27,9 +27,11 @@ const ActivityTitle = ({ title, isIncome }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
+    alignItems: "center",
   },
   text: {
     fontWeight: "bold",
+    fontSize: 18,
   },
 });
 

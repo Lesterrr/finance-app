@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, Alert } from "react-native";
+import { FlatList, Alert, StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 
 import * as actions from "../store/actions";
@@ -51,18 +51,26 @@ const ActivityScreen = ({ route, data, navigation, onDeleteActivity }) => {
   };
 
   return (
-    <FlatList
-      data={newData.length ? newData : data}
-      renderItem={({ item }) => (
-        <ActivityItem
-          {...item}
-          onLongPress={() => showSettingsHandler({ ...item })}
-        />
-      )}
-      keyExtractor={(_, index) => index.toString()}
-    />
+    <View style={styles.container}>
+      <FlatList
+        data={newData.length ? newData : data}
+        renderItem={({ item }) => (
+          <ActivityItem
+            {...item}
+            onLongPress={() => showSettingsHandler({ ...item })}
+          />
+        )}
+        keyExtractor={(_, index) => index.toString()}
+      />
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 15,
+  },
+});
 
 const mapStateToProps = (state) => {
   return {
