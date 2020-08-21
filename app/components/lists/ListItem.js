@@ -11,31 +11,21 @@ const ListItem = ({
   image,
   IconComponent,
   onPress,
-  descriptionProps,
-  titleProps,
   renderRightActions,
   containerStyle,
   description,
-  onLongPress,
   ListItemTitleComponent = ListItemTitle,
   ListItemDescriptionComponent = ListItemDescription,
 }) => {
   return (
     <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight
-        underlayColor={colors.light}
-        onPress={onPress}
-        onLongPress={onLongPress}
-      >
+      <TouchableHighlight underlayColor={colors.light} onPress={onPress}>
         <View style={[styles.container, containerStyle]}>
           {IconComponent}
           {image && <Image style={styles.image} source={image} />}
           <View style={styles.detailsContainer}>
-            <ListItemTitleComponent title={title} {...titleProps} />
-            <ListItemDescriptionComponent
-              description={description}
-              {...descriptionProps}
-            />
+            <ListItemTitleComponent title={title} />
+            <ListItemDescriptionComponent description={description} />
           </View>
         </View>
       </TouchableHighlight>

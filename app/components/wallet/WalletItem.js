@@ -1,22 +1,37 @@
 import React from "react";
-import { View } from "react-native";
+import { View, TouchableWithoutFeedback, StyleSheet } from "react-native";
 
-import ListItem from "../lists/ListItem";
 import WalletItemDescription from "./WalletItemDescription";
+import WalletItemTitle from "./WalletItemTitle";
 
-const WalletItem = ({ title, description, onPress, onLongPress, mode }) => {
+const WalletItem = ({
+  title,
+  description,
+  onPress,
+  mode,
+  containerStyle,
+  descriptionStyle,
+  WalletItemTitleComponent = WalletItemTitle,
+  WalletItemDescriptionComponent = WalletItemDescription,
+}) => {
   return (
-    <View>
-      <ListItem
-        title={title}
-        descriptionProps={{ description, mode }}
-        ListItemDescriptionComponent={WalletItemDescription}
-        onPress={onPress}
-        onLongPress={onLongPress}
-        containerStyle={{ backgroundColor: "none" }}
-      />
-    </View>
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={[styles.container, { ...containerStyle }]}>
+        <WalletItemTitleComponent title={title} />
+        <WalletItemDescriptionComponent
+          description={description}
+          mode={mode}
+          descriptionStyle={descriptionStyle}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+  },
+});
 
 export default WalletItem;
