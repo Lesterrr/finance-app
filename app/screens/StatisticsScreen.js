@@ -4,38 +4,63 @@ import { connect } from "react-redux";
 
 import Screen from "../components/Screen";
 import PieChart from "../components/charts/PieChart";
+import BarChart from "../components/charts/BarChart";
 import Button from "../components/Button";
-import { VictoryChart, VictoryBar, VictoryTheme } from "victory-native";
+import { reducer } from "../util/reducer";
 
 const StatisticsScreen = ({ activities }) => {
   const [isIncome, setIsIncome] = useState(false);
+  let barIncomeData = [];
+  let barExpenseData = [];
+  let days = 12; // Days you want to subtract
+  let date = new Date();
+  let last = new Date(date.getTime() - (days - 1) * 24 * 60 * 60 * 1000);
 
-  let data = [];
+  const lastDate = new Date(
+    last.getMonth() + 1 + "/" + last.getDate() + "/" + last.getFullYear()
+  );
+
+  activities.map((item) => {
+    if (item.date >= lastDate) {
+      if (item.isIncome) {
+        barIncomeData.push({
+          x: new Date(item.date).getDate(),
+          y: item.amount,
+        });
+        barExpenseData.push({
+          x: new Date(item.date).getDate(),
+          y: 0,
+        });
+      } else {
+        barIncomeData.push({
+          x: new Date(item.date).getDate(),
+          y: 0,
+        });
+        barExpenseData.push({
+          x: new Date(item.date).getDate(),
+          y: item.amount,
+        });
+      }
+    }
+  });
+  barIncomeData = reducer(barIncomeData);
+  barExpenseData = reducer(barExpenseData);
+  console.log("Bar Income", barIncomeData);
+  console.log("Bar Expense", barExpenseData);
+
+  let pieData = [];
+  // format [{x: "transpo", y: 1}, {x: "savings", y: 2}, {x: "transpo", y: 21}]
   if (isIncome) {
     activities.map((item) => {
-      item.isIncome && data.push({ x: item.category.name, y: item.amount });
+      item.isIncome && pieData.push({ x: item.category.name, y: item.amount });
     });
   } else {
     activities.map((item) => {
-      !item.isIncome && data.push({ x: item.category.name, y: item.amount });
+      !item.isIncome && pieData.push({ x: item.category.name, y: item.amount });
     });
   }
 
-  let pieData = [];
-  data.forEach((item) => {
-    let index = pieData.findIndex((element) => {
-      if (element[Object.keys(element)[0]] === item[Object.keys(item)[0]])
-        return true;
-    });
-    if (index === -1) {
-      pieData.push(item);
-    } else {
-      pieData[index] = {
-        [Object.keys(item)[0]]: item[Object.keys(item)[0]],
-        [Object.keys(item)[1]]: item[Object.keys(item)[1]] + pieData[index].y,
-      };
-    }
-  });
+  pieData = reducer(pieData);
 
   return (
     <Screen>
@@ -45,42 +70,7 @@ const StatisticsScreen = ({ activities }) => {
       />
       <View style={styles.container}>
         <PieChart data={pieData} />
-        <VictoryChart theme={VictoryTheme.material} domainPadding={10}>
-          <VictoryBar
-            style={{ data: { fill: "#c43a31" } }}
-            data={[
-              { x: 1, y: 12 },
-              { x: 2, y: 13 },
-              { x: 3, y: 15 },
-              { x: 4, y: 44 },
-              { x: 5, y: 31 },
-              { x: 6, y: 31 },
-              { x: 7, y: 31 },
-              { x: 8, y: 31 },
-              { x: 9, y: 31 },
-              { x: 10, y: 31 },
-              { x: 11, y: 31 },
-              { x: 12, y: 31 },
-            ]}
-          />
-          <VictoryBar
-            style={{ data: { fill: "green" } }}
-            data={[
-              { x: 1, y: 0 },
-              { x: 2, y: 23 },
-              { x: 3, y: 5 },
-              { x: 4, y: 14 },
-              { x: 5, y: 3 },
-              { x: 6, y: 3 },
-              { x: 7, y: 1 },
-              { x: 8, y: 3 },
-              { x: 9, y: 21 },
-              { x: 10, y: 41 },
-              { x: 11, y: 1 },
-              { x: 12, y: 13 },
-            ]}
-          />
-        </VictoryChart>
+        <BarChart income={barIncomeData} expense={barExpenseData} />
       </View>
     </Screen>
   );
