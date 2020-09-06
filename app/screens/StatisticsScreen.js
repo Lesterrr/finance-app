@@ -1,27 +1,69 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
+import { reducer } from "../util/reducer";
 
 import Screen from "../components/Screen";
 import PieChart from "../components/charts/PieChart";
 import BarChart from "../components/charts/BarChart";
 import Button from "../components/Button";
-import { reducer } from "../util/reducer";
+
+// const get12DaysBarChartData = (array, lastDate) => {
+//   let output = [];
+//   let i = 0;
+//   for (let index = 0; index < 12; index++) {
+//     if (array[i]) {
+//       if (array[i].x === lastDate.getDate()) {
+//         output.push(array[i]);
+//         i++;
+//       } else {
+//         output.push({ x: lastDate.getDate(), y: 0 });
+//       }
+//       lastDate.setDate(lastDate.getDate() + 1);
+//     } else {
+//       output.push({ x: lastDate.getDate(), y: 0 });
+//       lastDate.setDate(lastDate.getDate() + 1);
+//     }
+//   }
+//   return output;
+// };
+
+const updateBarData = (barData, lastDate) => {
+  let x = 0;
+  let newArr = [];
+  for (let index = 1; index < lastDate; index++) {
+    if (barData[x]) {
+      if (barData[x].x === index) {
+        newArr.push({ ...barData[x] });
+        x++;
+      } else {
+        newArr.push({ x: index, y: 0 });
+      }
+    } else {
+      newArr.push({ x: index, y: 0 });
+    }
+  }
+  return newArr;
+};
 
 const StatisticsScreen = ({ activities }) => {
   const [isIncome, setIsIncome] = useState(false);
   let barIncomeData = [];
   let barExpenseData = [];
-  let days = 12; // Days you want to subtract
-  let date = new Date();
-  let last = new Date(date.getTime() - (days - 1) * 24 * 60 * 60 * 1000);
 
+  const firstDate = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+  );
   const lastDate = new Date(
-    last.getMonth() + 1 + "/" + last.getDate() + "/" + last.getFullYear()
+    new Date().getFullYear(),
+    new Date().getMonth() + 1,
+    0
   );
 
   activities.map((item) => {
-    if (item.date >= lastDate) {
+    if (item.date >= firstDate && item.date <= lastDate) {
       if (item.isIncome) {
         barIncomeData.push({
           x: new Date(item.date).getDate(),
@@ -43,10 +85,8 @@ const StatisticsScreen = ({ activities }) => {
       }
     }
   });
-  barIncomeData = reducer(barIncomeData);
-  barExpenseData = reducer(barExpenseData);
-  console.log("Bar Income", barIncomeData);
-  console.log("Bar Expense", barExpenseData);
+  barIncomeData = updateBarData(reducer(barIncomeData), lastDate.getDate());
+  barExpenseData = updateBarData(reducer(barExpenseData), lastDate.getDate());
 
   let pieData = [];
   // format [{x: "transpo", y: 1}, {x: "savings", y: 2}, {x: "transpo", y: 21}]
