@@ -56,25 +56,22 @@ const NewsScreen = () => {
           Lorem ipsum dolor sit amet, conse adipisicing.
         </Text>
       </View>
-      <View style={styles.listsContainer}>
-        <Text>TODAY</Text>
-        {isLoading ? (
-          <ActivityIndicator />
-        ) : (
-          <View style={styles.lists}>
-            <FlatList
-              data={news}
-              renderItem={({ item }) => (
-                <NewsItem {...item} onPress={handleLinkOpen} />
-              )}
-              keyExtractor={(_, index) => index.toString()}
-              ItemSeparatorComponent={() => (
-                <View style={styles.listsSeparator} />
-              )}
-            />
-          </View>
-        )}
-      </View>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <View style={styles.lists}>
+          <FlatList
+            data={news}
+            renderItem={({ item }) => (
+              <NewsItem {...item} onPress={handleLinkOpen} />
+            )}
+            keyExtractor={(_, index) => index.toString()}
+            ItemSeparatorComponent={() => (
+              <View style={styles.listsSeparator} />
+            )}
+          />
+        </View>
+      )}
     </Screen>
   );
 };
@@ -108,13 +105,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 25,
   },
-  listsContainer: {
-    padding: 25,
-  },
   lists: {
-    marginTop: 25,
+    paddingRight: 25,
+    paddingLeft: 25,
   },
   listsSeparator: {
-    height: 25,
+    borderBottomWidth: 0.3,
+    borderColor: "#ddd",
+    marginTop: 15,
+    marginBottom: 15,
   },
 });
