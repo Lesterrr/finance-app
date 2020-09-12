@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, FlatList, ActivityIndicator, StyleSheet } from "react-native";
+import { View, ActivityIndicator, StyleSheet, ScrollView } from "react-native";
 import Axios from "axios";
 import { FontAwesome } from "@expo/vector-icons";
 import * as WebBrowser from "expo-web-browser";
@@ -9,11 +9,9 @@ import Screen from "../components/Screen";
 import Text from "../components/Text";
 
 const NewsScreen = () => {
-  const [news, setNews] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [news, setNews] = useState([]);
 
   useEffect(() => {
-    setIsLoading(true);
     const url =
       "http://newsapi.org/v2/top-headlines?" +
       "country=ph&" +
@@ -22,11 +20,9 @@ const NewsScreen = () => {
     Axios.get(url)
       .then((response) => {
         setNews(response.data.articles);
-        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
-        setIsLoading(false);
       });
   }, []);
 
@@ -50,28 +46,26 @@ const NewsScreen = () => {
           style={styles.icon}
         />
       </View>
-      <View style={styles.featured}>
-        <Text style={styles.featuredTitle}>FEARURED</Text>
-        <Text style={styles.featuredDescription}>
-          Lorem ipsum dolor sit amet, conse adipisicing.
-        </Text>
-      </View>
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <View style={styles.lists}>
-          <FlatList
-            data={news}
-            renderItem={({ item }) => (
-              <NewsItem {...item} onPress={handleLinkOpen} />
-            )}
-            keyExtractor={(_, index) => index.toString()}
-            ItemSeparatorComponent={() => (
-              <View style={styles.listsSeparator} />
-            )}
-          />
+      <ScrollView>
+        <View style={styles.featured}>
+          <Text style={styles.featuredTitle}>FEARURED</Text>
+          <Text style={styles.featuredDescription}>
+            Lorem ipsum dolor sit amet, conse adipisicing.
+          </Text>
         </View>
-      )}
+        <View style={styles.section}>
+          <Text style={styles.sectionText}>TODAY</Text>
+        </View>
+        {news.length === 0 ? (
+          <ActivityIndicator />
+        ) : (
+          <View style={styles.lists}>
+            {news.map((item, index) => (
+              <NewsItem key={index} {...item} onPress={handleLinkOpen} />
+            ))}
+          </View>
+        )}
+      </ScrollView>
     </Screen>
   );
 };
@@ -98,6 +92,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: 25,
   },
+  section: {
+    margin: 25,
+  },
+  sectionText: {},
   featuredTitle: {
     fontWeight: "bold",
   },
@@ -108,6 +106,7 @@ const styles = StyleSheet.create({
   lists: {
     paddingRight: 25,
     paddingLeft: 25,
+    marginBottom: 50,
   },
   listsSeparator: {
     borderBottomWidth: 0.3,

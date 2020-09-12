@@ -1,10 +1,10 @@
-export const paragraphTrimmer = (content) => {
+export const paragraphTrimmer = (content, maxLength = 85) => {
   // If content has more than 50 letters it will be trim.
   let trimmedContent;
-  if (content.length > 110) {
-    trimmedContent = content.substr(0, 110) + "...";
+  if (content.length > maxLength) {
+    trimmedContent = content.substr(0, maxLength) + "...";
   } else {
-    return content;
+    trimmedContent = content.substring(1, content.length);
   }
   return trimmedContent;
 };

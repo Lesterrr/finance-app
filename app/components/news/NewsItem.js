@@ -1,6 +1,10 @@
 import React from "react";
-import { StyleSheet, View, Image } from "react-native";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -18,39 +22,43 @@ const NewsItem = ({
   content,
   onPress,
 }) => {
-  const updatedTitle = paragraphTrimmer(title);
   return (
-    <TouchableWithoutFeedback
-      onPress={() => onPress(url)}
-      style={styles.container}
-    >
-      <View style={styles.main}>
-        <View style={[styles.texts, urlToImage && { marginRight: 15 }]}>
-          <Text style={styles.title}>{updatedTitle}</Text>
+    <TouchableWithoutFeedback onPress={() => onPress(url)}>
+      <View style={styles.container}>
+        <View style={styles.main}>
+          <View style={[styles.texts, urlToImage && { marginRight: 15 }]}>
+            <Text style={styles.title}>
+              {urlToImage
+                ? paragraphTrimmer(title, 75)
+                : paragraphTrimmer(title, 120)}
+            </Text>
+          </View>
+          {urlToImage && (
+            <View style={[styles.imageContainer]}>
+              <Image
+                source={{
+                  uri: urlToImage,
+                }}
+                style={{ width: "100%", height: "100%" }}
+              />
+            </View>
+          )}
         </View>
-        {urlToImage && (
-          <View style={[styles.imageContainer]}>
-            <Image
-              source={{
-                uri: urlToImage,
-              }}
-              style={{ width: "100%", height: "100%" }}
+        <View style={styles.secondary}>
+          <View style={styles.author}>
+            <Text style={styles.secondaryText}>
+              {author && author + " in "}
+            </Text>
+            <Text style={styles.secondaryText}>{source.name}</Text>
+          </View>
+          <View style={styles.icons}>
+            <FontAwesome name="bookmark-o" size={18} color="black" />
+            <MaterialCommunityIcons
+              name="dots-vertical"
+              size={18}
+              color="black"
             />
           </View>
-        )}
-      </View>
-      <View style={styles.secondary}>
-        <View style={styles.author}>
-          <Text style={styles.secondaryText}>{author && author + " in "}</Text>
-          <Text style={styles.secondaryText}>{source.name}</Text>
-        </View>
-        <View style={styles.icons}>
-          <FontAwesome name="bookmark-o" size={18} color="black" />
-          <MaterialCommunityIcons
-            name="dots-vertical"
-            size={18}
-            color="black"
-          />
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -61,9 +69,12 @@ export default NewsItem;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     height: 130,
     justifyContent: "space-between",
+    paddingBottom: 15,
+    marginBottom: 15,
+    borderBottomColor: "#ddd",
+    borderBottomWidth: 0.5,
   },
   main: {
     flexDirection: "row",
