@@ -4,7 +4,7 @@ export const paragraphTrimmer = (content, maxLength = 85) => {
   if (content.length > maxLength) {
     trimmedContent = content.substr(0, maxLength) + "...";
   } else {
-    trimmedContent = content.substring(1, content.length);
+    trimmedContent = content.substring(0, content.length);
   }
   return trimmedContent;
 };
