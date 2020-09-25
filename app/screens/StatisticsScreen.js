@@ -8,30 +8,10 @@ import PieChart from "../components/charts/PieChart";
 import BarChart from "../components/charts/BarChart";
 import Button from "../components/Button";
 
-// const get12DaysBarChartData = (array, lastDate) => {
-//   let output = [];
-//   let i = 0;
-//   for (let index = 0; index < 12; index++) {
-//     if (array[i]) {
-//       if (array[i].x === lastDate.getDate()) {
-//         output.push(array[i]);
-//         i++;
-//       } else {
-//         output.push({ x: lastDate.getDate(), y: 0 });
-//       }
-//       lastDate.setDate(lastDate.getDate() + 1);
-//     } else {
-//       output.push({ x: lastDate.getDate(), y: 0 });
-//       lastDate.setDate(lastDate.getDate() + 1);
-//     }
-//   }
-//   return output;
-// };
-
-const updateBarData = (barData, lastDate) => {
+const updateBarData = (barData) => {
   let x = 0;
   let newArr = [];
-  for (let index = 1; index < lastDate; index++) {
+  for (let index = 1; index < 13; index++) {
     if (barData[x]) {
       if (barData[x].x === index) {
         newArr.push({ ...barData[x] });
