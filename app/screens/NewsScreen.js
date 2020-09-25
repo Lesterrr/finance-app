@@ -7,6 +7,7 @@ import * as WebBrowser from "expo-web-browser";
 import NewsItem from "../components/news/NewsItem";
 import Screen from "../components/Screen";
 import Text from "../components/Text";
+import Header from "../components/Header";
 
 const NewsScreen = () => {
   const [news, setNews] = useState([]);
@@ -32,7 +33,7 @@ const NewsScreen = () => {
 
   return (
     <Screen>
-      <View style={styles.header}>
+      <Header>
         <FontAwesome
           name="search"
           size={24}
@@ -45,7 +46,7 @@ const NewsScreen = () => {
           color="black"
           style={styles.icon}
         />
-      </View>
+      </Header>
       <ScrollView>
         <View style={styles.featured}>
           <Text style={styles.featuredTitle}>FEARURED</Text>
@@ -73,14 +74,6 @@ const NewsScreen = () => {
 export default NewsScreen;
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: "#fff",
-    width: "100%",
-    height: 48,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
   icon: {
     padding: 25,
     fontSize: 16,

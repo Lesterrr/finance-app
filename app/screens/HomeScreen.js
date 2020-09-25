@@ -1,10 +1,13 @@
 import React from "react";
-import { View, StyleSheet, FlatList, ScrollView } from "react-native";
+import { View, StyleSheet, FlatList, ScrollView, Image } from "react-native";
 import { connect } from "react-redux";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import WalletItem from "../components/wallet/WalletItem";
 import Text from "../components/Text";
 import ActivityItem from "../components/activity/ActivityItem";
+import Screen from "../components/Screen";
+import Header from "../components/Header";
 
 const HomeScreen = ({
   navigation,
@@ -14,113 +17,81 @@ const HomeScreen = ({
   activity,
 }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.walletContainer}>
-        <View style={styles.main}>
-          <WalletItem
-            title="Balance"
-            description={balance}
-            onPress={() => navigation.navigate("Activity")}
-            descriptionStyle={{ fontSize: 45 }}
-            containerStyle={{ alignItems: "center" }}
+    //   <View style={styles.container}>
+    //     <View style={styles.walletContainer}>
+    //       <View style={styles.main}>
+    //         <WalletItem
+    //           title="Balance"
+    //           description={balance}
+    //           onPress={() => navigation.navigate("Activity")}
+    //           descriptionStyle={{ fontSize: 45 }}
+    //           containerStyle={{ alignItems: "center" }}
+    //         />
+    //       </View>
+    //       <View style={styles.secondary}>
+    //         <View style={styles.secondaryItem}>
+    //           <WalletItem
+    //             title="Total Income"
+    //             description={totalIncome}
+    //             onPress={() => navigation.navigate("Activity", { key: "income" })}
+    //             mode="income"
+    //             descriptionStyle={{ fontSize: 20, textAlign: "center" }}
+    //           />
+    //         </View>
+    //         <View style={styles.secondaryItem}>
+    //           <WalletItem
+    //             title="Total Expenses"
+    //             description={totalExpenses}
+    //             onPress={() =>
+    //               navigation.navigate("Activity", { key: "expense" })
+    //             }
+    //             mode="expense"
+    //             descriptionStyle={{ fontSize: 20, textAlign: "center" }}
+    //           />
+    //         </View>
+    //       </View>
+    //     </View>
+    //     <View style={styles.activityContainer}>
+    //       <Text>Transactions:</Text>
+    //       <FlatList
+    //         data={activity}
+    //         renderItem={({ item }) => <ActivityItem {...item} />}
+    //         keyExtractor={(_, index) => index.toString()}
+    //       />
+    //     </View>
+    //     <ScrollView style={styles.menu} horizontal={true}>
+    //       <View style={styles.menuItem}></View>
+    //       <View style={styles.menuItem}></View>
+    //       <View style={styles.menuItem}></View>
+    //       <View style={styles.menuItem}></View>
+    //       <View style={styles.menuItem}></View>
+    //       <View style={styles.menuItem}></View>
+    //       <View style={styles.menuItem}></View>
+    //       <View style={styles.menuItem}></View>
+    //       <View style={styles.menuItem}></View>
+    //       <View style={styles.menuItem}></View>
+    //     </ScrollView>
+    //   </View>
+    <Screen>
+      <Header>
+        <View style={styles.icon}>
+          <Image
+            style={{ width: 40, height: 40, borderRadius: 50 }}
+            source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
           />
         </View>
-        <View style={styles.secondary}>
-          <View style={styles.secondaryItem}>
-            <WalletItem
-              title="Total Income"
-              description={totalIncome}
-              onPress={() => navigation.navigate("Activity", { key: "income" })}
-              mode="income"
-              descriptionStyle={{ fontSize: 20, textAlign: "center" }}
-            />
-          </View>
-          <View style={styles.secondaryItem}>
-            <WalletItem
-              title="Total Expenses"
-              description={totalExpenses}
-              onPress={() =>
-                navigation.navigate("Activity", { key: "expense" })
-              }
-              mode="expense"
-              descriptionStyle={{ fontSize: 20, textAlign: "center" }}
-            />
-          </View>
+        <View style={styles.icon}>
+          <MaterialIcons name="notifications-none" size={24} color="black" />
         </View>
-      </View>
-      <View style={styles.activityContainer}>
-        <Text>Transactions:</Text>
-        <FlatList
-          data={activity}
-          renderItem={({ item }) => <ActivityItem {...item} />}
-          keyExtractor={(_, index) => index.toString()}
-        />
-      </View>
-      <ScrollView style={styles.menu} horizontal={true}>
-        <View style={styles.menuItem}></View>
-        <View style={styles.menuItem}></View>
-        <View style={styles.menuItem}></View>
-        <View style={styles.menuItem}></View>
-        <View style={styles.menuItem}></View>
-        <View style={styles.menuItem}></View>
-        <View style={styles.menuItem}></View>
-        <View style={styles.menuItem}></View>
-        <View style={styles.menuItem}></View>
-        <View style={styles.menuItem}></View>
-      </ScrollView>
-    </View>
+      </Header>
+    </Screen>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  main: {
-    height: 150,
-    justifyContent: "center",
-  },
-  secondary: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    width: "100%",
-  },
-  secondaryItem: {
-    width: "50%",
-    height: 50,
-    alignItems: "center",
-  },
-  walletContainer: {
-    paddingTop: 30,
-    paddingBottom: 50,
-    alignItems: "center",
-    backgroundColor: "#fdb32a",
-  },
-  activityContainer: {
-    width: "90%",
-    height: 250,
-    borderRadius: 6,
-    elevation: 3,
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    backgroundColor: "white",
-    alignSelf: "center",
-    marginHorizontal: 10,
-    top: -30,
-    padding: 10,
-  },
-  menu: {
-    top: -12,
-    marginHorizontal: 15,
-  },
-  menuItem: {
-    width: 90,
-    height: 120,
-    marginHorizontal: 5,
-    borderRadius: 20,
-    backgroundColor: "#fdb32a",
+  icon: {
+    padding: 25,
+    fontSize: 16,
   },
 });
 
