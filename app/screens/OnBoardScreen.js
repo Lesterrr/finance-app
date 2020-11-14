@@ -13,7 +13,7 @@ const OnBoardScreen = ({ onGetStarted }) => {
     <Swiper
       loop={false}
       showsPagination={showPagination}
-      onIndexChanged={(index) => index === 2 && setShowPagination(false)}
+      onIndexChanged={(index) => index === 2 && setShowPagination(false)} // Hide index when index 2 is reached.
       scrollEnabled={showPagination}
     >
       <View style={styles.slide}>
@@ -29,6 +29,7 @@ const OnBoardScreen = ({ onGetStarted }) => {
           </Text>
         </View>
       </View>
+
       <View style={styles.slide}>
         <Image
           style={styles.image}
@@ -42,6 +43,7 @@ const OnBoardScreen = ({ onGetStarted }) => {
           </Text>
         </View>
       </View>
+
       <View style={styles.slide}>
         <Image
           style={styles.image}

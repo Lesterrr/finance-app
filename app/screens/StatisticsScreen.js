@@ -41,7 +41,7 @@ const StatisticsScreen = ({ activities }) => {
     new Date().getMonth() + 1,
     0
   );
-
+  // Bar Graph
   activities.map((item) => {
     if (item.date >= firstDate && item.date <= lastDate) {
       if (item.isIncome) {
@@ -68,6 +68,7 @@ const StatisticsScreen = ({ activities }) => {
   barIncomeData = updateBarData(reducer(barIncomeData), lastDate.getDate());
   barExpenseData = updateBarData(reducer(barExpenseData), lastDate.getDate());
 
+  // Pie Chart
   let pieData = [];
   // format [{x: "transpo", y: 1}, {x: "savings", y: 2}, {x: "transpo", y: 21}]
   if (isIncome) {

@@ -23,6 +23,7 @@ const RegisterScreen = ({ isLoading, error, onAuth }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.greetings}>Create Account</Text>
+
       <Formik
         initialValues={{ email: "", password: "", confirmPassword: "" }}
         onSubmit={(values) => onAuth(values.email, values.password)}
@@ -53,11 +54,13 @@ const RegisterScreen = ({ isLoading, error, onAuth }) => {
             textContentType="password"
             secureTextEntry={true}
           />
+
           {isLoading ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : (
             <SubmitButton title="Sign Up" />
           )}
+
           <ErrorMessage error={error} visible={error !== null} />
         </React.Fragment>
       </Formik>

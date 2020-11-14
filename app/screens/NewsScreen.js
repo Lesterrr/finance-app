@@ -12,6 +12,7 @@ import Header from "../components/Header";
 const NewsScreen = () => {
   const [news, setNews] = useState([]);
 
+  // Fetch News Data
   useEffect(() => {
     const url =
       "http://newsapi.org/v2/top-headlines?" +
@@ -27,6 +28,7 @@ const NewsScreen = () => {
       });
   }, []);
 
+  // Links will be open using app browser.
   const handleLinkOpen = (url) => {
     WebBrowser.openBrowserAsync(url);
   };
@@ -47,16 +49,21 @@ const NewsScreen = () => {
           style={styles.icon}
         />
       </Header>
+
       <ScrollView>
+        {/* Featured News */}
         <View style={styles.featured}>
           <Text style={styles.featuredTitle}>FEARURED</Text>
           <Text style={styles.featuredDescription}>
             Lorem ipsum dolor sit amet, conse adipisicing.
           </Text>
         </View>
+
         <View style={styles.section}>
           <Text style={styles.sectionText}>TODAY</Text>
         </View>
+
+        {/* News lists */}
         {news.length === 0 ? (
           <ActivityIndicator />
         ) : (

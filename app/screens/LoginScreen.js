@@ -19,6 +19,7 @@ const LoginScreen = ({ isLoading, error, onAuth }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.greetings}>Welcome Back</Text>
+
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => onAuth(values.email, values.password)}
@@ -41,11 +42,13 @@ const LoginScreen = ({ isLoading, error, onAuth }) => {
             secureTextEntry={true}
             name="password"
           />
+
           {isLoading ? (
             <ActivityIndicator size="large" color="#0000ff" />
           ) : (
             <SubmitButton title="Sign In" />
           )}
+
           <ErrorMessage error={error} visible={error !== null} />
         </React.Fragment>
       </Formik>

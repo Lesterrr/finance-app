@@ -1,7 +1,9 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  showOnBoard: true,
+  showOnBoard: true, // IsFirstTime? opening the app.
+  // IsDarkMode?
+  // IsOnline?
 };
 
 const reducer = (state = initialState, action) => {

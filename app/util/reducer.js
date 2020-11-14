@@ -1,3 +1,4 @@
+// Transform Data to reduced form.
 export const reducer = (array) => {
   let temp = [];
   // Reduced array -> [{x: "transpo", y: 22}, {x: "savings", y: 2}]
