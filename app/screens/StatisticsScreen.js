@@ -91,7 +91,7 @@ const StatisticsScreen = ({ activities }) => {
       />
       <View style={styles.container}>
         <PieChart data={pieData} />
-        <BarChart income={barIncomeData} expense={barExpenseData} />
+        {/* <BarChart income={barIncomeData} expense={barExpenseData} /> */}
       </View>
     </Screen>
   );

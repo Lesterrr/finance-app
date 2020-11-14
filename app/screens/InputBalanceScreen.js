@@ -41,6 +41,7 @@ const InputBalanceScreen = ({
     setSelectedItem(categories[0]);
     setDescription(null);
     setIsError(false);
+    setIsIncome(true);
   };
 
   const submitHandler = () => {
@@ -147,7 +148,12 @@ const InputBalanceScreen = ({
       ) : (
         <Button title="Confirm" onPress={submitHandler} />
       )}
-      <Button title="Cancel" onPress={() => navigation.goBack()} />
+      <Button
+        title="Cancel"
+        onPress={() => {
+          clearState(), navigation.goBack();
+        }}
+      />
     </Screen>
   );
 };
