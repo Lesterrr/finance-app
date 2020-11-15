@@ -29,8 +29,8 @@ const NewsScreen = () => {
   }, []);
 
   // Links will be open using app browser.
-  const handleLinkOpen = (url) => {
-    WebBrowser.openBrowserAsync(url);
+  const handleLinkOpen = (image, title, description, author, date) => {
+    console.log(image, title, description, author, date);
   };
 
   return (

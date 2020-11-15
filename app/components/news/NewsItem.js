@@ -23,7 +23,11 @@ const NewsItem = ({
   onPress,
 }) => {
   return (
-    <TouchableWithoutFeedback onPress={() => onPress(url)}>
+    <TouchableWithoutFeedback
+      onPress={() =>
+        onPress(urlToImage, title, description, author, publishedAt)
+      }
+    >
       <View style={styles.container}>
         <View style={styles.main}>
           <View style={[styles.texts, urlToImage && { marginRight: 15 }]}>
