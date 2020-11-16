@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator, StyleSheet, ScrollView } from "react-native";
 import Axios from "axios";
-import { FontAwesome } from "@expo/vector-icons";
-import * as WebBrowser from "expo-web-browser";
 
 import NewsItem from "../components/news/NewsItem";
-import Screen from "../components/Screen";
 import Text from "../components/Text";
-import Header from "../components/Header";
 
-const NewsScreen = () => {
+const NewsScreen = ({ navigation }) => {
   const [news, setNews] = useState([]);
 
   // Fetch News Data
@@ -29,62 +25,45 @@ const NewsScreen = () => {
   }, []);
 
   // Links will be open using app browser.
-  const handleLinkOpen = (image, title, description, author, date) => {
-    console.log(image, title, description, author, date);
+  const handleLinkOpen = ({ ...item }) => {
+    navigation.push("NewsDetail", { ...item });
   };
 
   return (
-    <Screen>
-      <Header>
-        <FontAwesome
-          name="search"
-          size={24}
-          color="black"
-          style={styles.icon}
-        />
-        <FontAwesome
-          name="bookmark"
-          size={24}
-          color="black"
-          style={styles.icon}
-        />
-      </Header>
+    <ScrollView>
+      {/* Featured News */}
+      <View style={styles.featured}>
+        <Text style={styles.featuredTitle}>FEARURED</Text>
+        <Text style={styles.featuredDescription}>
+          Lorem ipsum dolor sit amet, conse adipisicing.
+        </Text>
+      </View>
 
-      <ScrollView>
-        {/* Featured News */}
-        <View style={styles.featured}>
-          <Text style={styles.featuredTitle}>FEARURED</Text>
-          <Text style={styles.featuredDescription}>
-            Lorem ipsum dolor sit amet, conse adipisicing.
-          </Text>
+      <View style={styles.section}>
+        <Text style={styles.sectionText}>TODAY</Text>
+      </View>
+
+      {/* News lists */}
+      {news.length === 0 ? (
+        <ActivityIndicator />
+      ) : (
+        <View style={styles.lists}>
+          {news.map((item, index) => (
+            <NewsItem
+              key={index}
+              {...item}
+              onPress={() => handleLinkOpen(item)}
+            />
+          ))}
         </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionText}>TODAY</Text>
-        </View>
-
-        {/* News lists */}
-        {news.length === 0 ? (
-          <ActivityIndicator />
-        ) : (
-          <View style={styles.lists}>
-            {news.map((item, index) => (
-              <NewsItem key={index} {...item} onPress={handleLinkOpen} />
-            ))}
-          </View>
-        )}
-      </ScrollView>
-    </Screen>
+      )}
+    </ScrollView>
   );
 };
 
 export default NewsScreen;
 
 const styles = StyleSheet.create({
-  icon: {
-    padding: 25,
-    fontSize: 16,
-  },
   featured: {
     maxWidth: "100%",
     height: 250,

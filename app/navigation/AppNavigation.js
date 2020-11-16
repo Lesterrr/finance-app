@@ -3,12 +3,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 
 import HomeScreen from "../screens/HomeScreen";
-import NewsScreen from "../screens/NewsScreen";
 import InputBalanceScreen from "../screens/InputBalanceScreen";
 import StatisticsScreen from "../screens/StatisticsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import colors from "../config/colors";
 import InputButton from "./InputButton";
+import NewsNavigation from "./NewsNavigation";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +16,7 @@ const AppNavigation = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        showLabel: false,
+        // showLabel: false,
         inactiveTintColor: colors.black,
         keyboardHidesTabBar: true,
       }}
@@ -54,7 +54,7 @@ const AppNavigation = () => {
       />
       <Tab.Screen
         name="News"
-        component={NewsScreen}
+        component={NewsNavigation}
         options={{
           tabBarIcon: ({ size, color }) => (
             <FontAwesome name="newspaper-o" size={size} color={color} />

@@ -3,24 +3,35 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import colors from "../config/colors";
 
-const NewsDetailScreen = ({ image, title, description, author, date }) => {
+const NewsDetailScreen = ({ route }) => {
+  const {
+    source,
+    author,
+    title,
+    description,
+    url,
+    urlToImage,
+    publishedAt,
+    content,
+    onPress,
+  } = route.params;
   return (
     <ScrollView>
       {/* Image */}
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: image }} />
+        <Image style={styles.image} source={{ uri: urlToImage }} />
       </View>
       {/* Texts */}
 
       <View style={styles.textContainer}>
-        <Text style={styles.title}>NEws Detail Screen</Text>
+        <Text style={styles.title}>{title}</Text>
         <View style={styles.subTitle}>
           <Text style={styles.subTitleText}>{author}</Text>
-          <Text style={styles.subTitleText}>{date}</Text>
+          <Text style={styles.subTitleText}>{publishedAt}</Text>
         </View>
       </View>
       <View style={styles.content}>
-        <Text style={styles.contentText}>{description}</Text>
+        <Text style={styles.contentText}>{content}</Text>
       </View>
     </ScrollView>
   );
