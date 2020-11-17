@@ -26,6 +26,7 @@ const InputBalanceScreen = ({
   const [description, setDescription] = useState(null);
   const [isError, setIsError] = useState(false);
 
+  // Get previous data when editing.
   useEffect(() => {
     if (route.params) {
       const item = route.params;
@@ -36,6 +37,20 @@ const InputBalanceScreen = ({
     }
   }, [route.params]);
 
+  // Filter the input. Change to regex later.
+  const changeAmountHandler = (text) => {
+    let newText = "";
+    let numbers = "0123456789.";
+
+    for (var i = 0; i < text.length; i++) {
+      if (numbers.indexOf(text[i]) > -1) {
+        newText = newText + text[i];
+      }
+    }
+    setAmount(newText);
+  };
+
+  // Reset state.
   const clearState = () => {
     setAmount("");
     setSelectedItem(categories[0]);
@@ -44,6 +59,7 @@ const InputBalanceScreen = ({
     setIsIncome(true);
   };
 
+  // Submit data.
   const submitHandler = () => {
     if (parseFloat(amount) === 0 || !amount) {
       setIsError(true);
@@ -64,6 +80,7 @@ const InputBalanceScreen = ({
     navigation.navigate("Home");
   };
 
+  // Submit updated data.
   const updateHandler = () => {
     if (parseFloat(amount) === 0 || !amount) {
       setIsError(true);
@@ -121,7 +138,7 @@ const InputBalanceScreen = ({
       <View>
         <Text>Amount : </Text>
         <TextInput
-          onChangeText={(e) => setAmount(e)}
+          onChangeText={(e) => changeAmountHandler(e)}
           keyboardType="numeric"
           placeholder="Amount"
           value={amount.toString()}
