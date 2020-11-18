@@ -1,33 +1,21 @@
 import React from "react";
-import { Text, Button } from "react-native";
-import { connect } from "react-redux";
+import { StyleSheet, Text, View } from "react-native";
 
-import Screen from "../components/Screen";
-import * as actions from "../store/actions/index";
-
-const SettingsScreen = ({ navigation, isAuth, onAuthLogout }) => {
+const SettingsScreen = () => {
   return (
-    <Screen>
-      <Text>Settings Screen!</Text>
-      {isAuth ? (
-        <Button title="Logout" onPress={onAuthLogout} />
-      ) : (
-        <Button title="Login" onPress={() => navigation.navigate("Login")} />
-      )}
-    </Screen>
+    <View style={styles.container}>
+      <Text>SettingsScreen</Text>
+    </View>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isAuth: state.auth.token !== null,
-  };
-};
+export default SettingsScreen;
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onAuthLogout: () => dispatch(actions.authLogout()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsScreen);
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
