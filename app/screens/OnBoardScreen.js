@@ -56,9 +56,11 @@ const OnBoardScreen = ({ onGetStarted }) => {
             eiusmod tempor incididunt ut labore et dolore magna aliqua."
           </Text>
         </View>
-        <View style={styles.button}>
-          <Button title="Get Started" onPress={onGetStarted} />
-        </View>
+        {!showPagination && (
+          <View style={styles.button}>
+            <Button title="Get Started" onPress={onGetStarted} />
+          </View>
+        )}
       </View>
     </Swiper>
   );
