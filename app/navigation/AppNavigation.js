@@ -16,7 +16,7 @@ const AppNavigation = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        // showLabel: false,
+        showLabel: false,
         inactiveTintColor: colors.black,
         keyboardHidesTabBar: true,
       }}
@@ -36,7 +36,7 @@ const AppNavigation = () => {
         component={StatisticsScreen}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <FontAwesome name="bar-chart" size={size} color={color} />
+            <FontAwesome name="home" size={size} color={color} />
           ),
         }}
       />
@@ -44,11 +44,11 @@ const AppNavigation = () => {
         name="InputBalance"
         component={InputBalanceScreen}
         options={({ navigation }) => ({
-          tabBarButton: () => (
-            <InputButton onPress={() => navigation.navigate("InputBalance")} />
-          ),
+          // tabBarButton: () => (
+          //   <InputButton onPress={() => navigation.navigate("InputBalance")} />
+          // ),
           tabBarIcon: ({ size, color }) => (
-            <FontAwesome name="plus-circle" size={size} color={color} />
+            <FontAwesome name="home" size={size} color={color} />
           ),
         })}
       />
@@ -57,7 +57,7 @@ const AppNavigation = () => {
         component={NewsNavigation}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <FontAwesome name="newspaper-o" size={size} color={color} />
+            <FontAwesome name="home" size={size} color={color} />
           ),
         }}
       />
@@ -66,7 +66,7 @@ const AppNavigation = () => {
         component={SettingsScreen}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <FontAwesome name="gears" size={size} color={color} />
+            <FontAwesome name="home" size={size} color={color} />
           ),
         }}
       />

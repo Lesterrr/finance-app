@@ -16,15 +16,19 @@ const NewsNavigation = () => {
         gestureEnabled: true,
       }}
     >
-      <Stack.Screen name="NewsScreen" component={NewsScreen} />
+      <Stack.Screen
+        name="NewsScreen"
+        component={NewsScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="NewsDetail"
         component={NewsDetailScreen}
-        options={{
-          headerTitle: false,
-          headerTransparent: true,
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
+        // options={{
+        //   headerTitle: false,
+        //   headerTransparent: true,
+        //   ...TransitionPresets.SlideFromRightIOS,
+        // }}
       />
     </Stack.Navigator>
   );

@@ -1,96 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, StyleSheet, ScrollView } from "react-native";
-import Axios from "axios";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
-import NewsItem from "../components/news/NewsItem";
-import Text from "../components/Text";
-
-const NewsScreen = ({ navigation }) => {
-  const [news, setNews] = useState([]);
-
-  // Fetch News Data
-  useEffect(() => {
-    const url =
-      "http://newsapi.org/v2/top-headlines?" +
-      "country=ph&" +
-      "category=business&" +
-      "apiKey=275f3c5775a9496c8e9897b826685367";
-    Axios.get(url)
-      .then((response) => {
-        setNews(response.data.articles);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  // Links will be open using app browser.
-  const handleLinkOpen = ({ ...item }) => {
-    navigation.push("NewsDetail", { ...item });
-  };
-
+const NewsScreen = () => {
   return (
-    <ScrollView>
-      {/* Featured News */}
-      <View style={styles.featured}>
-        <Text style={styles.featuredTitle}>FEARURED</Text>
-        <Text style={styles.featuredDescription}>
-          Lorem ipsum dolor sit amet, conse adipisicing.
-        </Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionText}>TODAY</Text>
-      </View>
-
-      {/* News lists */}
-      {news.length === 0 ? (
-        <ActivityIndicator />
-      ) : (
-        <View style={styles.lists}>
-          {news.map((item, index) => (
-            <NewsItem
-              key={index}
-              {...item}
-              onPress={() => handleLinkOpen(item)}
-            />
-          ))}
-        </View>
-      )}
-    </ScrollView>
+    <View style={styles.container}>
+      <Text>NewsScreen</Text>
+    </View>
   );
 };
 
 export default NewsScreen;
 
 const styles = StyleSheet.create({
-  featured: {
-    maxWidth: "100%",
-    height: 250,
-    backgroundColor: "#FDFDBC",
-    justifyContent: "space-between",
-    padding: 25,
-  },
-  section: {
-    margin: 25,
-  },
-  sectionText: {},
-  featuredTitle: {
-    fontWeight: "bold",
-  },
-  featuredDescription: {
-    fontSize: 20,
-    lineHeight: 25,
-  },
-  lists: {
-    paddingRight: 25,
-    paddingLeft: 25,
-    marginBottom: 50,
-  },
-  listsSeparator: {
-    borderBottomWidth: 0.3,
-    borderColor: "#ddd",
-    marginTop: 15,
-    marginBottom: 15,
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

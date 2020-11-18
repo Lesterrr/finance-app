@@ -8,7 +8,7 @@ const InputButton = ({ onPress }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
-        <FontAwesome name="plus-circle" size={50} color="white" />
+        <FontAwesome name="plus-circle" size={35} color="white" />
       </View>
     </TouchableWithoutFeedback>
   );
@@ -22,10 +22,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 40,
-    borderWidth: 10,
-    borderColor: "white",
-    bottom: 25,
-    height: 80,
-    width: 80,
+    height: 36,
+    width: 36,
+    margin: 5,
   },
 });
